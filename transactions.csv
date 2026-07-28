@@ -1,0 +1,161 @@
+﻿transaction_id,message_id,date,sender_name,account,direction,amount,currency,category_label,action,objects,roles,locations,time_period,counterparty,order_ref,content
+txn_00001,8037641077302,2026-07-01,Hoàng Anh,Hương.acb,chi,9320000,VND,Quỹ nội bộ,chuyen,quy,,,,,,chuyển quỹ tiền mặt về tài khoản công ty
+txn_00002,8037641081911,2026-07-02,Ngọc Mai,Mai.stb,chi,3960000,VND,Lương/Ứng lương,ung,luong,nhan_vien,,,Dũng,,ứng lương nhân viên kinh doanh a Dũng vận tải
+txn_00003,8037641090684,2026-07-02,Thu Hương,Tuấn.bidv,chi,460000,VND,Ship/Vận chuyển,,ship;don_hang,,,,,4547,cước vận chuyển liên tỉnh đơn hàng #4547
+txn_00004,8037641096617,2026-07-02,Xuân Svl,Xuân.svl,chi,3060000,VND,Lương/Ứng lương,ung,luong,nhan_vien,,tháng 7,,,ứng lương tháng 7 cho nhân viên kho
+txn_00005,8037641098797,2026-07-02,Đức Thịnh,Đức.tcb,chi,1120000,VND,Thưởng/Phạt,ung,thuong,,,,,,ứng trước tiền thưởng tháng cho ca kho
+txn_00006,8037641102760,2026-07-02,Diệu Linh,Tuấn.bidv,thu,810000,VND,Khách hàng thanh toán,thanh_toan,sua_chua,,,,Tùng,,a Tùng thanh toán tiền bảo hành đệm
+txn_00007,8037641108006,2026-07-02,Diệu Linh,Thịnh.vtb,chi,1750000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00008,8037641115653,2026-07-02,Văn Nam,Tuấn.bidv,thu,1560000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,,,,,thu tiền đặt cọc khách lẻ mua đệm
+txn_00009,8037641116890,2026-07-02,Minh Tuấn,Nam.vcb,chi,10320000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00010,8037641118549,2026-07-02,Thị Lan,Trâm.tpb,thu,440000,VND,Khách hàng thanh toán,thanh_toan,sua_chua,noi_bo,,,Yến,,c Yến kế toán thanh toán tiền bảo hành đệm
+txn_00011,8037641124548,2026-07-02,Thu Hương,Nam.vcb,chi,1500000,VND,Nhà cung cấp,ung,hang_hoa,nha_cung_cap,,,Long,,ứng tiền mua hàng hộ anh Long xưởng gỗ
+txn_00012,8037641131693,2026-07-02,Khánh Đức,Trâm.tpb,chi,2140000,VND,Vật tư/Sửa chữa,chi,sua_chua,,,,,,chi phí sửa xe tải giao hàng
+txn_00013,8037641135981,2026-07-03,Đức Thịnh,Hương.acb,chi,6040000,VND,Marketing/Quảng cáo,thanh_toan,quang_cao,,,tháng 7,,,thanh toán tiền quảng cáo Facebook tháng 7
+txn_00014,8037641140793,2026-07-03,Thu Hương,Linh.vib,thu,150000,VND,Tạm ứng công tác,hoan_ung,cong_tac,,Hải Phòng,,,,hoàn ứng tiền dư công tác Hải Phòng
+txn_00015,8037641141968,2026-07-03,Quốc Bảo,Hương.acb,chi,3860000,VND,Nhà cung cấp,ung,hang_hoa,noi_bo,,,Yến,,ứng tiền mua hàng hộ c Yến kế toán
+txn_00016,8037641144696,2026-07-03,Diệu Linh,Bảo.msb,chi,4190000,VND,Lương/Ứng lương,ung,luong,nhan_vien,,,Phong,,ứng lương nhân viên kinh doanh anh Phong
+txn_00017,8037641149128,2026-07-03,Thị Lan,Nam.vcb,thu,14260000,VND,Khách hàng thanh toán,thu,,khach_hang,Ninh Hiệp,,,,thu tiền khách sỉ chợ Ninh Hiệp còn nợ kỳ trước
+txn_00018,8037641151371,2026-07-03,Văn Nam,Xuân.svl,chi,1670000,VND,Vật tư/Sửa chữa,chi,sua_chua,,,,,,chi phí sửa xe tải giao hàng
+txn_00019,8037641157442,2026-07-03,Bảo Trâm,Xuân.svl,chi,760000,VND,Tạm ứng công tác,,cong_tac;hoa_hong,,,tháng 7,,,chi hoa hồng cộng tác viên tháng 7
+txn_00020,8037641164803,2026-07-03,Thu Hương,Thịnh.vtb,chi,1030000,VND,Ship/Vận chuyển,,ship;don_hang,,,,,4004,cước vận chuyển liên tỉnh đơn hàng #4004
+txn_00021,8037641170404,2026-07-03,Bảo Trâm,Xuân.svl,thu,1970000,VND,Khách hàng thanh toán,thu,,khach_hang,,,,4562,thu tiền khách trả góp đợt cuối #4562
+txn_00022,8037641173674,2026-07-03,Thu Hương,Trâm.tpb,chi,1860000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí
+txn_00023,8037641181987,2026-07-03,Bảo Trâm,Thịnh.vtb,chi,3090000,VND,Nhà cung cấp,ung,hang_hoa,,,,Hùng,,ứng tiền mua hàng hộ anh Hùng
+txn_00024,8037641188485,2026-07-03,Minh Tuấn,Trâm.tpb,chi,1030000,VND,Tạm ứng công tác,ung,cong_tac,,Hưng Yên,,,,tạm ứng công tác phí đi Hưng Yên
+txn_00025,8037641194893,2026-07-04,Ngọc Mai,Đức.tcb,thu,8350000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,Ninh Hiệp,,,4440,khách sỉ chợ Ninh Hiệp đặt cọc đơn hàng nội thất #4440
+txn_00026,8037641197226,2026-07-04,Văn Nam,Lan.mb,chi,1090000,VND,Tạm ứng công tác,ung,cong_tac,,Hưng Yên,,,,tạm ứng công tác phí đi Hưng Yên
+txn_00027,8037641200835,2026-07-04,Minh Tuấn,Hương.acb,chi,4630000,VND,Marketing/Quảng cáo,thanh_toan,quang_cao,,,tháng 7,,,thanh toán tiền quảng cáo Facebook tháng 7
+txn_00028,8037641204550,2026-07-04,Diệu Linh,Tuấn.bidv,chi,1260000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00029,8037641207777,2026-07-04,Xuân Svl,Lan.mb,chi,3650000,VND,Quỹ nội bộ,chuyen,quy,,,,,,chuyển quỹ tiền mặt về tài khoản công ty
+txn_00030,8037641212994,2026-07-04,Văn Nam,Lan.mb,chi,1040000,VND,Tạm ứng công tác,ung,cong_tac,,Hưng Yên,,,,tạm ứng công tác phí đi Hưng Yên
+txn_00031,8037641221328,2026-07-04,Đức Thịnh,Linh.vib,chi,520000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí
+txn_00032,8037641229395,2026-07-05,Thị Lan,Xuân.svl,chi,6330000,VND,Lương/Ứng lương,chi,luong,nhan_vien,,tháng 7,,,chi lương nhân viên giao hàng tháng 7
+txn_00033,8037641234711,2026-07-05,Đức Thịnh,Xuân.svl,chi,1610000,VND,Khách hàng thanh toán,chi,sua_chua,khach_hang,,,,,chi phí sửa chữa máy móc bảo hành cho khách
+txn_00034,8037641240861,2026-07-05,Minh Tuấn,Đức.tcb,thu,210000,VND,Tạm ứng công tác,hoan_ung,cong_tac,,Hải Phòng,,,,hoàn ứng tiền dư công tác Hải Phòng
+txn_00035,8037641242009,2026-07-05,Bảo Trâm,Nam.vcb,thu,13120000,VND,Khách hàng thanh toán,thu,,khach_hang,Ninh Hiệp,,,,thu tiền khách sỉ chợ Ninh Hiệp còn nợ kỳ trước
+txn_00036,8037641246671,2026-07-05,Khánh Đức,Xuân.svl,chi,1690000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00037,8037641253304,2026-07-06,Quốc Bảo,Bảo.msb,chi,5360000,VND,Marketing/Quảng cáo,thanh_toan,quang_cao,,,tháng 7,,,thanh toán tiền quảng cáo Facebook tháng 7
+txn_00038,8037641254420,2026-07-06,Minh Tuấn,Tuấn.bidv,thu,4430000,VND,Khách hàng thanh toán,thanh_toan,,,,,Dũng,4154,a Dũng vận tải chuyển khoản thanh toán đợt 2 đơn #4154
+txn_00039,8037641258540,2026-07-06,Quốc Bảo,Linh.vib,thu,750000,VND,Khách hàng thanh toán,thanh_toan,sua_chua,,,,Tùng,,a Tùng thanh toán tiền bảo hành đệm
+txn_00040,8037641261743,2026-07-06,Bảo Trâm,Bảo.msb,thu,8960000,VND,Khách hàng thanh toán,thu,,khach_hang,Ninh Hiệp,,,,thu tiền khách sỉ chợ Ninh Hiệp còn nợ kỳ trước
+txn_00041,8037641264527,2026-07-06,Khánh Đức,Lan.mb,chi,1840000,VND,Chi phí văn phòng,thanh_toan,dien_nuoc,,,tháng 7,,,thanh toán tiền điện nước văn phòng tháng 7
+txn_00042,8037641267173,2026-07-07,Văn Nam,Xuân.svl,chi,1170000,VND,Khách hàng thanh toán,chi,sua_chua,khach_hang,,,,,chi phí sửa chữa máy móc bảo hành cho khách
+txn_00043,8037641271400,2026-07-07,Bảo Trâm,Xuân.svl,chi,6350000,VND,Lương/Ứng lương,chi,luong,nhan_vien,,tháng 7,,,chi lương nhân viên giao hàng tháng 7
+txn_00044,8037641278822,2026-07-07,Thị Lan,Lan.mb,thu,410000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,,,,,thu tiền đặt cọc khách lẻ mua đệm
+txn_00045,8037641285091,2026-07-07,Xuân Svl,Mai.stb,chi,2140000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí
+txn_00046,8037641292258,2026-07-08,Khánh Đức,Linh.vib,chi,9420000,VND,Quỹ nội bộ,chuyen,quy,,,,,,chuyển quỹ tiền mặt về tài khoản công ty
+txn_00047,8037641301118,2026-07-08,Xuân Svl,Xuân.svl,thu,410000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,,,,,thu tiền đặt cọc khách lẻ mua đệm
+txn_00048,8037641304278,2026-07-08,Ngọc Mai,Trâm.tpb,thu,60000,VND,Thưởng/Phạt,thu,phat,,Hưng Yên,tháng 7,Đạt Hưng Yên,,thu tiền phạt đi muộn tháng 7 của a Đạt Hưng Yên
+txn_00049,8037641309159,2026-07-08,Đức Thịnh,Đức.tcb,chi,8480000,VND,Quỹ nội bộ,chuyen,quy,,,,,,chuyển quỹ tiền mặt về tài khoản công ty
+txn_00050,8037641314205,2026-07-08,Thu Hương,Lan.mb,thu,4730000,VND,Khách hàng thanh toán,thu,,khach_hang,,,,4699,thu tiền khách trả góp đợt cuối #4699
+txn_00051,8037641316829,2026-07-08,Ngọc Mai,Đức.tcb,chi,4000000,VND,Khách hàng thanh toán,ung,hang_hoa,khach_hang,Ninh Hiệp,,,,ứng tiền mua hàng hộ khách sỉ chợ Ninh Hiệp
+txn_00052,8037641321780,2026-07-09,Xuân Svl,Hương.acb,chi,850000,VND,Khách hàng thanh toán,chi,sua_chua,khach_hang,,,,,chi phí sửa chữa máy móc bảo hành cho khách
+txn_00053,8037641326586,2026-07-10,Đức Thịnh,Lan.mb,chi,2610000,VND,Lương/Ứng lương,ung,luong,khach_hang;nhan_vien,,,,,ứng lương nhân viên kinh doanh khách lẻ
+txn_00054,8037641331345,2026-07-10,Đức Thịnh,Đức.tcb,thu,110000,VND,Thưởng/Phạt,thu,phat,khach_hang,Ninh Hiệp,tháng 7,,,thu tiền phạt đi muộn tháng 7 của khách sỉ chợ Ninh Hiệp
+txn_00055,8037641333506,2026-07-10,Bảo Trâm,Trâm.tpb,thu,5960000,VND,Công nợ,thu_hoi,cong_no,khach_hang,,,Nga,,thu hồi công nợ khách c Nga
+txn_00056,8037641336401,2026-07-10,Bảo Trâm,Lan.mb,chi,1330000,VND,Chi phí văn phòng,thanh_toan,dien_nuoc,,,tháng 7,,,thanh toán tiền điện nước văn phòng tháng 7
+txn_00057,8037641339874,2026-07-10,Đức Thịnh,Mai.stb,chi,800000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00058,8037641347024,2026-07-10,Văn Nam,Mai.stb,chi,1460000,VND,Vật tư/Sửa chữa,chi,sua_chua,,,,,,chi phí sửa xe tải giao hàng
+txn_00059,8037641351220,2026-07-10,Ngọc Mai,Đức.tcb,thu,3120000,VND,Khách hàng thanh toán,thanh_toan,,khach_hang,Ninh Hiệp,,,4389,khách sỉ chợ Ninh Hiệp chuyển khoản thanh toán đợt 2 đơn #4389
+txn_00060,8037641359057,2026-07-10,Xuân Svl,Đức.tcb,chi,2090000,VND,Chi phí văn phòng,thanh_toan,dien_nuoc,,,tháng 7,,,thanh toán tiền điện nước văn phòng tháng 7
+txn_00061,8037641366390,2026-07-11,Thị Lan,Bảo.msb,chi,1630000,VND,Tạm ứng công tác,ung,cong_tac,,Sài Gòn;Nam Định,,Thảo Nam Định,,ứng tiền công tác Sài Gòn cho chị Thảo Nam Định
+txn_00062,8037641370755,2026-07-11,Ngọc Mai,Xuân.svl,chi,13670000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00063,8037641375153,2026-07-11,Xuân Svl,Hương.acb,thu,13940000,VND,Khách hàng thanh toán,thu,,khach_hang,Ninh Hiệp,,,,thu tiền khách sỉ chợ Ninh Hiệp còn nợ kỳ trước
+txn_00064,8037641380111,2026-07-11,Thị Lan,Lan.mb,thu,1140000,VND,Khách hàng thanh toán,thanh_toan,sua_chua,,Nam Định,,Thảo Nam Định,,chị Thảo Nam Định thanh toán tiền bảo hành đệm
+txn_00065,8037641387761,2026-07-11,Quốc Bảo,Mai.stb,chi,710000,VND,Thưởng/Phạt,ung,thuong,,,,,,ứng trước tiền thưởng tháng cho ca kho
+txn_00066,8037641390760,2026-07-11,Bảo Trâm,Nam.vcb,chi,1150000,VND,Tạm ứng công tác,,cong_tac;hoa_hong,,,tháng 7,,,chi hoa hồng cộng tác viên tháng 7
+txn_00067,8037641396426,2026-07-12,Văn Nam,Tuấn.bidv,thu,70000,VND,Thưởng/Phạt,thu,phat,nha_cung_cap,,tháng 7,Long,,thu tiền phạt đi muộn tháng 7 của anh Long xưởng gỗ
+txn_00068,8037641400196,2026-07-12,Khánh Đức,Linh.vib,chi,440000,VND,Chi phí văn phòng,do_xang,xang,,,,,,đổ xăng xe tải giao hàng
+txn_00069,8037641406353,2026-07-12,Khánh Đức,Trâm.tpb,thu,7880000,VND,Công nợ,thu_hoi,cong_no,khach_hang;noi_bo,,,Yến,,thu hồi công nợ khách c Yến kế toán
+txn_00070,8037641410890,2026-07-12,Minh Tuấn,Đức.tcb,thu,11180000,VND,Công nợ,thu_hoi,cong_no,khach_hang,,,Hùng,,thu hồi công nợ khách anh Hùng
+txn_00071,8037641412489,2026-07-12,Thị Lan,Xuân.svl,chi,540000,VND,Tạm ứng công tác,ung,cong_tac,,Hưng Yên,,,,tạm ứng công tác phí đi Hưng Yên
+txn_00072,8037641421450,2026-07-12,Bảo Trâm,Trâm.tpb,chi,930000,VND,Tạm ứng công tác,,cong_tac;hoa_hong,,,tháng 7,,,chi hoa hồng cộng tác viên tháng 7
+txn_00073,8037641429985,2026-07-13,Thu Hương,Linh.vib,chi,6740000,VND,Nhà cung cấp,chi,hang_hoa,,,,Hoa,,chi trả tiền hàng cho chị Hoa
+txn_00074,8037641437242,2026-07-13,Quốc Bảo,Linh.vib,chi,7620000,VND,Nhà cung cấp,chi,hang_hoa,,Nam Định,,Thảo Nam Định,,chi trả tiền hàng còn nợ cho chị Thảo Nam Định
+txn_00075,8037641443165,2026-07-13,Thu Hương,Đức.tcb,chi,15740000,VND,Nhà cung cấp,chi,hang_hoa,,,,Nga,,chi trả tiền hàng còn nợ cho c Nga
+txn_00076,8037641446150,2026-07-13,Khánh Đức,Thịnh.vtb,chi,14430000,VND,Nhà cung cấp,chi,hang_hoa,,Nam Định,,Thảo Nam Định,,chi trả tiền hàng còn nợ cho chị Thảo Nam Định
+txn_00077,8037641447603,2026-07-13,Bảo Trâm,Nam.vcb,thu,120000,VND,Thưởng/Phạt,thu,phat,,Hưng Yên,tháng 7,Đạt Hưng Yên,,thu tiền phạt đi muộn tháng 7 của a Đạt Hưng Yên
+txn_00078,8037641451635,2026-07-14,Minh Tuấn,Trâm.tpb,chi,250000,VND,Chi phí văn phòng,do_xang,xang,,,,,,đổ xăng xe tải giao hàng
+txn_00079,8037641455027,2026-07-14,Đức Thịnh,Xuân.svl,chi,1270000,VND,Khách hàng thanh toán,chi,sua_chua,khach_hang,,,,,chi phí sửa chữa máy móc bảo hành cho khách
+txn_00080,8037641457841,2026-07-14,Bảo Trâm,Đức.tcb,thu,6570000,VND,Khách hàng thanh toán,dat_coc,don_hang,,,,Nga,4154,c Nga đặt cọc đơn hàng nội thất #4154
+txn_00081,8037641464291,2026-07-14,Thị Lan,Đức.tcb,chi,2060000,VND,Khách hàng thanh toán,tiep_khach,,khach_hang;doi_tac,Bình Dương,,Tùng,,tiếp khách đối tác Bình Dương cùng a Tùng
+txn_00082,8037641465715,2026-07-14,Xuân Svl,Hương.acb,chi,8550000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00083,8037641469412,2026-07-14,Khánh Đức,Hương.acb,chi,12600000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00084,8037641477286,2026-07-14,Văn Nam,Bảo.msb,thu,690000,VND,Quỹ nội bộ,ung,tam_ung_du,,,,Hoa,,thu lại tiền tạm ứng dư của chị Hoa
+txn_00085,8037641481728,2026-07-15,Hoàng Anh,Trâm.tpb,thu,110000,VND,Tạm ứng công tác,hoan_ung,cong_tac,,Hải Phòng,,,,hoàn ứng tiền dư công tác Hải Phòng
+txn_00086,8037641488505,2026-07-15,Thu Hương,Thịnh.vtb,thu,5390000,VND,Khách hàng thanh toán,dat_coc,don_hang,noi_bo,,,Yến,4154,c Yến kế toán đặt cọc đơn hàng nội thất #4154
+txn_00087,8037641496853,2026-07-15,Minh Tuấn,Tuấn.bidv,chi,2850000,VND,Thưởng/Phạt,chi,thuong,khach_hang,,tháng 7,,,chi thưởng doanh số tháng 7 cho khách lẻ
+txn_00088,8037641498365,2026-07-15,Khánh Đức,Bảo.msb,chi,350000,VND,Chi phí văn phòng,do_xang,xang,,,,,,đổ xăng xe tải giao hàng
+txn_00089,8037641499722,2026-07-15,Khánh Đức,Lan.mb,thu,3640000,VND,Khách hàng thanh toán,thanh_toan,,nha_cung_cap,,,Long,4237,anh Long xưởng gỗ chuyển khoản thanh toán đợt 2 đơn #4237
+txn_00090,8037641508229,2026-07-15,Diệu Linh,Linh.vib,chi,1000000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí
+txn_00091,8037641512395,2026-07-16,Quốc Bảo,Đức.tcb,chi,990000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00092,8037641519444,2026-07-16,Thị Lan,Mai.stb,chi,830000,VND,Khách hàng thanh toán,tiep_khach,,khach_hang;doi_tac,Bình Dương,,,,tiếp khách đối tác Bình Dương cùng khách lẻ
+txn_00093,8037641525324,2026-07-16,Diệu Linh,Hương.acb,thu,2670000,VND,Khách hàng thanh toán,thu,,khach_hang,,,,4603,thu tiền khách trả góp đợt cuối #4603
+txn_00094,8037641530270,2026-07-16,Bảo Trâm,Nam.vcb,chi,9630000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00095,8037641532976,2026-07-16,Bảo Trâm,Tuấn.bidv,thu,320000,VND,Tạm ứng công tác,hoan_ung,cong_tac,,Hải Phòng,,,,hoàn ứng tiền dư công tác Hải Phòng
+txn_00096,8037641541277,2026-07-16,Ngọc Mai,Trâm.tpb,chi,740000,VND,Tạm ứng công tác,,cong_tac;hoa_hong,,,tháng 7,,,chi hoa hồng cộng tác viên tháng 7
+txn_00097,8037641544469,2026-07-16,Minh Tuấn,Linh.vib,chi,2660000,VND,Thưởng/Phạt,chi,thuong,,,tháng 7,Tâm,,chi thưởng doanh số tháng 7 cho chị Tâm
+txn_00098,8037641546725,2026-07-17,Thị Lan,Linh.vib,thu,450000,VND,Khách hàng thanh toán,thanh_toan,sua_chua,khach_hang,,,,,khách lẻ thanh toán tiền bảo hành đệm
+txn_00099,8037641549620,2026-07-17,Xuân Svl,Nam.vcb,chi,460000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí
+txn_00100,8037641552513,2026-07-17,Thu Hương,Bảo.msb,chi,5750000,VND,Nhà cung cấp,chi,hang_hoa,,,,Tâm,,chi trả tiền hàng cho chị Tâm
+txn_00101,8037641561483,2026-07-18,Đức Thịnh,Tuấn.bidv,chi,140000,VND,Ship/Vận chuyển,,ship,khach_hang,,,,,tiền ship COD hoàn về do khách hủy đơn
+txn_00102,8037641568831,2026-07-18,Xuân Svl,Nam.vcb,chi,3900000,VND,Lương/Ứng lương,ung,luong,nhan_vien,,tháng 7,,,ứng lương tháng 7 cho nhân viên kho
+txn_00103,8037641570192,2026-07-18,Quốc Bảo,Xuân.svl,chi,3290000,VND,Lương/Ứng lương,ung,luong,nhan_vien,,,Nga,,ứng lương nhân viên kinh doanh c Nga
+txn_00104,8037641572708,2026-07-18,Thị Lan,Xuân.svl,thu,9840000,VND,Khách hàng thanh toán,dat_coc,don_hang,,Hưng Yên,,Đạt Hưng Yên,4084,a Đạt Hưng Yên đặt cọc đơn hàng nội thất #4084
+txn_00105,8037641574538,2026-07-18,Thị Lan,Đức.tcb,thu,1820000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,,,,4429,khách lẻ đặt cọc đơn hàng nội thất #4429
+txn_00106,8037641578894,2026-07-18,Ngọc Mai,Bảo.msb,thu,90000,VND,Thưởng/Phạt,thu,phat,,,tháng 7,Kiên,,thu tiền phạt đi muộn tháng 7 của anh Kiên
+txn_00107,8037641580043,2026-07-18,Quốc Bảo,Lan.mb,chi,230000,VND,Chi phí văn phòng,do_xang,xang,,,,,,đổ xăng xe tải giao hàng
+txn_00108,8037641582325,2026-07-18,Hoàng Anh,Bảo.msb,thu,7000000,VND,Khách hàng thanh toán,thanh_toan,,,,,Dũng,4367,a Dũng vận tải chuyển khoản thanh toán đợt 2 đơn #4367
+txn_00109,8037641583748,2026-07-19,Thu Hương,Đức.tcb,chi,13910000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00110,8037641587068,2026-07-19,Văn Nam,Bảo.msb,chi,8910000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00111,8037641594927,2026-07-19,Bảo Trâm,Hương.acb,chi,2550000,VND,Lương/Ứng lương,ung,luong,nhan_vien,,tháng 7,,,ứng lương tháng 7 cho nhân viên kho
+txn_00112,8037641602681,2026-07-19,Khánh Đức,Trâm.tpb,chi,430000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí
+txn_00113,8037641605179,2026-07-19,Văn Nam,Bảo.msb,thu,1780000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,,,,,thu tiền đặt cọc khách lẻ mua đệm
+txn_00114,8037641608202,2026-07-19,Minh Tuấn,Xuân.svl,chi,13300000,VND,Chi phí văn phòng,thanh_toan,thue_kho,,,tháng 7,,,thanh toán tiền thuê kho tháng 7
+txn_00115,8037641612935,2026-07-19,Diệu Linh,Nam.vcb,chi,220000,VND,Ship/Vận chuyển,,ship,khach_hang,,,,,tiền ship COD hoàn về do khách hủy đơn
+txn_00116,8037641617595,2026-07-19,Quốc Bảo,Lan.mb,chi,390000,VND,Chi phí văn phòng,do_xang,xang,,,,,,đổ xăng xe tải giao hàng
+txn_00117,8037641623662,2026-07-19,Đức Thịnh,Hương.acb,chi,400000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00118,8037641627654,2026-07-19,Đức Thịnh,Hương.acb,chi,2540000,VND,Nhà cung cấp,ung,hang_hoa,,,,Tâm,,ứng tiền mua hàng hộ chị Tâm
+txn_00119,8037641636208,2026-07-19,Đức Thịnh,Thịnh.vtb,chi,9720000,VND,Quỹ nội bộ,chuyen,quy,,,,,,chuyển quỹ tiền mặt về tài khoản công ty
+txn_00120,8037641638323,2026-07-19,Hoàng Anh,Linh.vib,chi,3810000,VND,Quỹ nội bộ,chuyen,quy,,,,,,chuyển quỹ tiền mặt về tài khoản công ty
+txn_00121,8037641645835,2026-07-19,Thu Hương,Anh.ocb,chi,740000,VND,Thưởng/Phạt,ung,thuong,,,,,,ứng trước tiền thưởng tháng cho ca kho
+txn_00122,8037641654179,2026-07-19,Quốc Bảo,Linh.vib,thu,360000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,,,,,thu tiền đặt cọc khách lẻ mua đệm
+txn_00123,8037641660224,2026-07-20,Thị Lan,Trâm.tpb,chi,1650000,VND,Tạm ứng công tác,ung,cong_tac,khach_hang,Sài Gòn,,,,ứng tiền công tác Sài Gòn cho khách lẻ
+txn_00124,8037641668895,2026-07-20,Minh Tuấn,Tuấn.bidv,chi,1090000,VND,Chi phí văn phòng,thanh_toan,dien_nuoc,,,tháng 7,,,thanh toán tiền điện nước văn phòng tháng 7
+txn_00125,8037641676926,2026-07-20,Quốc Bảo,Tuấn.bidv,chi,200000,VND,Chi phí văn phòng,mua,van_phong_pham,,,,,,chi phí mua văn phòng phẩm
+txn_00126,8037641681155,2026-07-20,Đức Thịnh,Thịnh.vtb,thu,840000,VND,Quỹ nội bộ,ung,tam_ung_du,,,,Tâm,,thu lại tiền tạm ứng dư của chị Tâm
+txn_00127,8037641685778,2026-07-21,Hoàng Anh,Lan.mb,chi,330000,VND,Chi phí văn phòng,mua,van_phong_pham,,,,,,chi phí mua văn phòng phẩm
+txn_00128,8037641691577,2026-07-21,Văn Nam,Anh.ocb,chi,950000,VND,Ship/Vận chuyển,,ship;don_hang,,,,,4389,cước vận chuyển liên tỉnh đơn hàng #4389
+txn_00129,8037641696117,2026-07-21,Quốc Bảo,Tuấn.bidv,chi,100000,VND,Ship/Vận chuyển,thanh_toan,ship;sua_chua,,,,Hùng,,thanh toán ship đệm cho anh Hùng về bảo hành
+txn_00130,8037641697299,2026-07-21,Bảo Trâm,Tuấn.bidv,chi,530000,VND,Ship/Vận chuyển,,ship;don_hang,,,,,4699,cước vận chuyển liên tỉnh đơn hàng #4699
+txn_00131,8037641701684,2026-07-21,Khánh Đức,Anh.ocb,chi,1270000,VND,Vật tư/Sửa chữa,chi,sua_chua,,,,,,chi phí sửa xe tải giao hàng
+txn_00132,8037641702799,2026-07-22,Thị Lan,Anh.ocb,chi,760000,VND,Tạm ứng công tác,ung,cong_tac,,Hưng Yên,,,,tạm ứng công tác phí đi Hưng Yên
+txn_00133,8037641709250,2026-07-22,Minh Tuấn,Linh.vib,chi,2150000,VND,Tạm ứng công tác,ung,cong_tac,,Sài Gòn,,Tâm,,ứng tiền công tác Sài Gòn cho chị Tâm
+txn_00134,8037641714988,2026-07-22,Thị Lan,Mai.stb,thu,210000,VND,Khách hàng thanh toán,thanh_toan,sua_chua,,,,Hoa,,chị Hoa thanh toán tiền bảo hành đệm
+txn_00135,8037641716194,2026-07-22,Xuân Svl,Thịnh.vtb,chi,1130000,VND,Khách hàng thanh toán,tiep_khach,,khach_hang;doi_tac,Bình Dương,,Tùng,,tiếp khách đối tác Bình Dương cùng a Tùng
+txn_00136,8037641724902,2026-07-22,Văn Nam,Nam.vcb,thu,80000,VND,Tạm ứng công tác,hoan_ung,cong_tac,,Hải Phòng,,,,hoàn ứng tiền dư công tác Hải Phòng
+txn_00137,8037641728436,2026-07-22,Văn Nam,Mai.stb,thu,8300000,VND,Khách hàng thanh toán,thanh_toan,,khach_hang,,,,4012,khách lẻ chuyển khoản thanh toán đợt 2 đơn #4012
+txn_00138,8037641733247,2026-07-23,Thị Lan,Bảo.msb,chi,1420000,VND,Ship/Vận chuyển,,ship;don_hang,,,,,4674,cước vận chuyển liên tỉnh đơn hàng #4674
+txn_00139,8037641734564,2026-07-23,Diệu Linh,Bảo.msb,chi,740000,VND,Tạm ứng công tác,,cong_tac;hoa_hong,,,tháng 7,,,chi hoa hồng cộng tác viên tháng 7
+txn_00140,8037641739136,2026-07-23,Hoàng Anh,Linh.vib,thu,1110000,VND,Khách hàng thanh toán,thanh_toan,sua_chua,,,,Hoa,,chị Hoa thanh toán tiền bảo hành đệm
+txn_00141,8037641747547,2026-07-23,Bảo Trâm,Lan.mb,thu,8440000,VND,Khách hàng thanh toán,thu,,khach_hang,Ninh Hiệp,,,,thu tiền khách sỉ chợ Ninh Hiệp còn nợ kỳ trước
+txn_00142,8037641751655,2026-07-23,Diệu Linh,Nam.vcb,thu,250000,VND,Tạm ứng công tác,hoan_ung,cong_tac,,Hải Phòng,,,,hoàn ứng tiền dư công tác Hải Phòng
+txn_00143,8037641752872,2026-07-23,Quốc Bảo,Linh.vib,chi,1700000,VND,Thưởng/Phạt,chi,thuong,khach_hang,,tháng 7,,,chi thưởng doanh số tháng 7 cho khách lẻ
+txn_00144,8037641761333,2026-07-24,Diệu Linh,Nam.vcb,chi,9340000,VND,Nhà cung cấp,chi,hang_hoa,,,,Dũng,,chi trả tiền hàng còn nợ cho a Dũng vận tải
+txn_00145,8037641768073,2026-07-24,Văn Nam,Xuân.svl,chi,680000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00146,8037641776089,2026-07-24,Khánh Đức,Xuân.svl,chi,1380000,VND,Tạm ứng công tác,ung,cong_tac,,Hưng Yên,,,,tạm ứng công tác phí đi Hưng Yên
+txn_00147,8037641778753,2026-07-25,Hoàng Anh,Nam.vcb,chi,2780000,VND,Thưởng/Phạt,chi,thuong,,,tháng 7,Kiên,,chi thưởng doanh số tháng 7 cho anh Kiên
+txn_00148,8037641786240,2026-07-25,Khánh Đức,Xuân.svl,chi,8840000,VND,Lương/Ứng lương,chi,luong,nhan_vien,,tháng 7,,,chi lương nhân viên giao hàng tháng 7
+txn_00149,8037641789342,2026-07-25,Quốc Bảo,Nam.vcb,thu,10530000,VND,Khách hàng thanh toán,thu,,khach_hang,Ninh Hiệp,,,,thu tiền khách sỉ chợ Ninh Hiệp còn nợ kỳ trước
+txn_00150,8037641790595,2026-07-25,Thị Lan,Xuân.svl,chi,1820000,VND,Chi phí văn phòng,thanh_toan,dien_nuoc,,,tháng 7,,,thanh toán tiền điện nước văn phòng tháng 7
+txn_00151,8037641796001,2026-07-25,Ngọc Mai,Xuân.svl,chi,4650000,VND,Marketing/Quảng cáo,thanh_toan,quang_cao,,,tháng 7,,,thanh toán tiền quảng cáo Facebook tháng 7
+txn_00152,8037641798656,2026-07-26,Minh Tuấn,Linh.vib,chi,7940000,VND,Lương/Ứng lương,chi,luong,nhan_vien,,tháng 7,,,chi lương nhân viên giao hàng tháng 7
+txn_00153,8037641801167,2026-07-26,Khánh Đức,Xuân.svl,chi,1750000,VND,Vật tư/Sửa chữa,chi,sua_chua,,,,,,chi phí sửa xe tải giao hàng
+txn_00154,8037641803925,2026-07-26,Đức Thịnh,Anh.ocb,chi,1810000,VND,Vật tư/Sửa chữa,chi,sua_chua,,,,,,chi phí sửa xe tải giao hàng
+txn_00155,8037641809522,2026-07-27,Diệu Linh,Nam.vcb,chi,920000,VND,Khách hàng thanh toán,tiep_khach,,khach_hang;doi_tac,Bình Dương,,Tâm,,tiếp khách đối tác Bình Dương cùng chị Tâm
+txn_00156,8037641816626,2026-07-27,Thu Hương,Bảo.msb,chi,1210000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí
+txn_00157,8037641822090,2026-07-27,Ngọc Mai,Bảo.msb,chi,1350000,VND,Ship/Vận chuyển,chi,ship,,Hà Nội,,,,chi phí vận chuyển hàng về kho Hà Nội
+txn_00158,8037641829258,2026-07-27,Văn Nam,Mai.stb,thu,1370000,VND,Khách hàng thanh toán,dat_coc,don_hang,khach_hang,,,,,thu tiền đặt cọc khách lẻ mua đệm
+txn_00159,8037641833946,2026-07-27,Quốc Bảo,Xuân.svl,chi,1980000,VND,Vật tư/Sửa chữa,chi,sua_chua,,,,,,chi phí sửa xe tải giao hàng
+txn_00160,8037641839690,2026-07-27,Bảo Trâm,Linh.vib,chi,730000,VND,Vật tư/Sửa chữa,mua,vat_tu;sua_chua,,,,,,mua vật tư sửa chữa máy nén khí

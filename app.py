@@ -9,6 +9,7 @@ from pathlib import Path
 from flask import Flask, jsonify, render_template, request
 from markupsafe import Markup
 
+
 from qa_engine import ask_openai, build_qa_context
 
 app = Flask(__name__)

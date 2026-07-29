@@ -30,7 +30,7 @@ ACCOUNT_RE = re.compile(r"Tk\s+(.+?)\.\s*([+-])\s*([\d.,]+)\s*vnd", re.IGNORECAS
 CONTENT_RE = re.compile(r"Nội dung:\s*(.+)")
 ORDER_RE = re.compile(r"#(\d+)")
 TIME_PERIOD_RE = re.compile(r"tháng\s*\d{1,2}", re.IGNORECASE)
-COUNTERPARTY_MARKERS = {"anh", "chị", "khách", "a", "c"}
+COUNTERPARTY_MARKERS = {"anh", "chị", "khách", "a", "c", "cô", "chú"}
 
 
 def extract_counterparty(content):
@@ -40,7 +40,10 @@ def extract_counterparty(content):
     # lowercase words too (e.g. "đệm"). Checking str.isupper() per token
     # avoids that trap. Marker must be its own token, not a substring
     # (e.g. "mua" must not match the "a" marker).
-    tokens = content.split()
+    # Real messages sometimes glue the marker onto the preceding word with
+    # no space (e.g. "HD122.Chị Thơ..."), which would otherwise merge into
+    # one token and hide the marker — split on "." too before tokenizing.
+    tokens = re.sub(r"\.(?=\S)", ". ", content).split()
     for i, tok in enumerate(tokens):
         if tok.lower() not in COUNTERPARTY_MARKERS:
             continue
@@ -75,7 +78,8 @@ ACTION_LEXICON = [
     ("hoan_ung", ["hoan ung"]),
     ("ung", ["tam ung", "ung truoc", "ung tien", "ung luong"]),
     ("thu_hoi", ["thu hoi"]),
-    ("dat_coc", ["dat coc"]),
+    ("dat_coc", ["dat coc", "coc"]),
+    ("tat_toan", ["tat toan"]),
     ("thanh_toan", ["thanh toan"]),
     ("chuyen", ["chuyen khoan", "chuyen quy"]),
     ("tiep_khach", ["tiep khach"]),
@@ -96,7 +100,7 @@ OBJECT_LEXICON = {
     "van_phong_pham": ["van phong pham"],
     "thue_kho": ["thue kho"],
     "xang": ["xang"],
-    "quang_cao": ["quang cao"],
+    "quang_cao": ["quang cao", "chay ads"],
     "hoa_hong": ["hoa hong"],
     "quy": ["quy tien mat"],
     "thuong": ["thuong doanh so", "tien thuong"],
@@ -137,7 +141,7 @@ CATEGORY_RULES = [
     (lambda a, o, r, d: "luong" in o, "luong_ung_luong"),
     (lambda a, o, r, d: "thuong" in o or "phat" in o, "thuong_phat"),
     (lambda a, o, r, d: "ship" in o, "ship_van_chuyen"),
-    (lambda a, o, r, d: a == "dat_coc" or "khach_hang" in r or (d == "thu" and a == "thanh_toan"), "khach_hang"),
+    (lambda a, o, r, d: a in ("dat_coc", "tat_toan") or "khach_hang" in r or (d == "thu" and a == "thanh_toan"), "khach_hang"),
     (lambda a, o, r, d: "vat_tu" in o or "sua_chua" in o, "vat_tu_sua_chua"),
     (lambda a, o, r, d: bool({"dien_nuoc", "van_phong_pham", "thue_kho", "xang"} & set(o)), "van_phong"),
     (lambda a, o, r, d: "quang_cao" in o or "hoa_hong" in o, "marketing"),

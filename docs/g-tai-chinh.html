@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Phòng Tài Chính</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #dfe6ec;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+  }
+  .phone {
+    width: 480px;
+    max-width: 100%;
+    height: 90vh;
+    background: #eef2f6;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .header {
+    background: #0068ff;
+    color: #fff;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .header .group-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: #0068ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .header .info { flex: 1; }
+  .header .info .name { font-weight: 600; font-size: 16px; }
+  .header .info .sub { font-size: 12px; opacity: .85; }
+  .header .icons { display: flex; gap: 16px; font-size: 18px; opacity: .9; }
+
+  .chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+    background: #eef2f6;
+  }
+  .chat-area::-webkit-scrollbar { width: 6px; }
+  .chat-area::-webkit-scrollbar-thumb { background: #c3cdd6; border-radius: 3px; }
+
+  .date-separator {
+    text-align: center;
+    margin: 14px 0;
+  }
+  .date-separator span {
+    background: #d8e0e8;
+    color: #5c6a76;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+
+  .msg-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  .avatar-slot { width: 30px; flex-shrink: 0; }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .msg-content { max-width: 78%; }
+  .sender-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 6px 0 2px 2px;
+  }
+  .bubble {
+    background: #fff;
+    border-radius: 14px;
+    padding: 8px 12px;
+    font-size: 14.5px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  }
+  .bubble .tag-thu { color: #1a9c50; font-weight: 700; }
+  .bubble .tag-chi { color: #d6392f; font-weight: 700; }
+  .time {
+    font-size: 10.5px;
+    color: #93a1ab;
+    margin: 3px 0 0 2px;
+  }
+
+  .footer {
+    flex-shrink: 0;
+    background: #fff;
+    border-top: 1px solid #e2e8ee;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #93a1ab;
+    font-size: 14px;
+  }
+  .footer .box {
+    flex: 1;
+    background: #f0f3f6;
+    border-radius: 18px;
+    padding: 8px 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="header">
+      
+      <a href="index.html" style="color:#fff; text-decoration:none; font-size:18px; margin-right:2px;" title="Danh sách nhóm">←</a>
+      
+      <div class="group-avatar">P</div>
+      <div class="info">
+        <div class="name">Phòng Tài Chính</div>
+        <div class="sub">5 thành viên · 66 tin nhắn</div>
+      </div>
+      <div class="icons"><a href="stats.html" style="color:#fff; text-decoration:none; font-size:13px; border:1px solid rgba(255,255,255,.6); border-radius:12px; padding:4px 10px;">Thống kê</a></div>
+    </div>
+
+    
+    <div style="display:flex; gap:6px; padding:8px 10px; background:#fff; border-bottom:1px solid #e2e8ee; overflow-x:auto; flex-shrink:0;">
+      
+      <a href="g-hop-dong.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Hợp đồng, Phát sinh, Quyết toán
+      </a>
+      
+      <a href="g-tai-chinh.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#0068ff; color:#fff;">
+        Phòng Tài Chính
+      </a>
+      
+      <a href="g-kinh-doanh.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Phòng Kinh Doanh
+      </a>
+      
+      <a href="g-nhan-su.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Phòng Nhân Sự
+      </a>
+      
+      <a href="g-marketing.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Phòng Marketing
+      </a>
+      
+    </div>
+    
+
+    <div class="chat-area" id="chatArea">
+      
+        
+          <div class="date-separator"><span>Ngày 21/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 21/07/2026<br><span class="tag-thu">Tk tiền mặt: + 11,500,000 vnđ </span><br>Nội dung: tất toán HD100 anh Phong lĩnh Nam</div>
+              <div class="time">00:58</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 21/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 410,000 vnd </span><br>Nội dung: thanh toán tiền mua Sơn xịt chân sắt DH a Quân Cầu Giấy nghệ an+ mua lưỡi đánh rỉ, bút bi, cana.</div>
+              <div class="time">08:18</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 21/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl. - 410,000 vnd </span><br>Nội dung: thanh toán tiền mua Sơn xịt chân sắt DH a Quân Cầu Giấy nghệ an+ mua lưỡi đánh rỉ, bút bi, cana.</div>
+              <div class="time">08:20</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 21/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 1,150,000 vnd </span><br>Nội dung: thanh toán tiền mua thang giường bảo hành chị Hùng vinhome</div>
+              <div class="time">08:21</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 21/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 1,100,000 vnd </span><br>Nội dung: thanh toán tiền vận chuyển DH114 c trang hòa bình</div>
+              <div class="time">10:23</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 22/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">* Đề xuất 1 ngày 22/07/2026:<br>-đề xuất nạp tiền chạy ads facebook xưởng da Vinasofa. <br>-Tk gửi: Tk Xuân.svl<br>- Tk nhận: TK công ty Ánh Dương Group ( Ck Vũ nộp vào tk cty) <br>- số tiền thanh toán: 20,000,000 vnd<br>@NV Bảo Hoa    e gửi đề xuất thanh toán tiền chạy ads facebook. A duyệt giúp em ạ.</div>
+              <div class="time">01:55</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 4,000,000  vnd </span><br>Nội dung: đặt cọc làm bàn dh chị Khánh Vĩnh Yên ninh. VT ADV- inox Bắc Nam</div>
+              <div class="time">02:32</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 30,500,000 vnd </span><br>Nội dung: tất toán HD96.anh Quỳnh Chi Nam Định</div>
+              <div class="time">03:23</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl. - 2,380,000  vnd </span><br>Nội dung: thanh toán tiền ship chú Hoa</div>
+              <div class="time">04:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 2,200,000 vnd </span><br>Nội dung: thanh toán tiền vận chuyển DH96 anh Quân Cầu Giấy nghệ an (trả hàng)</div>
+              <div class="time">04:16</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0554f;">G</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0554f;">NV Bảo Long</div>
+              
+              <div class="bubble">@NV Gia Bảo ok nhé</div>
+              <div class="time">04:16</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">@NV Bảo Hoa  Vâng ạ</div>
+              <div class="time">04:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 20,000,000 vnd </span><br>Nội dung: thanh toán tiền chạy ads Vinasofa. (Chuyển khoản cho Vũ quản lý)</div>
+              <div class="time">08:13</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 20,000,000 vnd </span><br>Nội dung: thanh toán tiền chạy ads Vinasofa. (Chuyển khoản cho Vũ quản lý- lần 2)</div>
+              <div class="time">08:14</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 23,232,404 vnd </span><br>Nội dung: thanh toán tiền chạy ads Vinasofa. (Chuyển khoản cho Vũ quản lý- lần 3)</div>
+              <div class="time">08:16</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br>-Tk Xuân.svl: - 10,232,404 vnđ<br>-Tk tiền mặt Xuân: - 10,000,000 vnđ <br>-Tổng 2 tài khoản= - 23,232,404 vnd <br>Nội dung: thanh toán tiền chạy ads Vinasofa. (Chuyển khoản cho Vũ quản lý- lần 3)</div>
+              <div class="time">08:18</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br>-Tk Xuân.svl. - 10,232,404 vnd <br>- Tk tiền mặt Xuân: -13,000,000 vnd <br>- tổng 2 Tài khoản: - 23,232,404 vnđ<br>Nội dung: thanh toán tiền chạy ads Vinasofa. (Chuyển khoản cho Vũ quản lý- lần 3)</div>
+              <div class="time">08:47</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 50,000,000 vnd </span><br>Nội dung: Pego tạm ứng công nợ</div>
+              <div class="time">09:06</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">* Đề xuất 2 ngày 22/07/2026:<br>-đề xuất:  thanh toán tiền mua màn máy tính Xuân (1,650,000). Thanh toán tiền mua máy cho maketing (25,390,000) (ngày 20/05/2026) <br>-Tk gửi: Tk Xuân.svl<br>- Tk nhận: TK Vũ quản lý<br>- số tiền thanh toán: 27,040,000 vnd<br>@NV Bảo Hoa e gửi đề xuất thanh toán tiền máy tính công ty đã thanh toán trước cho savisofa ạ.</div>
+              <div class="time">09:32</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">G</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Bảo Long</div>
+              
+              <div class="bubble">@NV Gia Bảo ok nhé</div>
+              <div class="time">11:26</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Vâng ạ</div>
+              <div class="time">11:31</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 5,500,000 vnd </span><br>Nội dung: tất toán HD104. Chị Khoa Bỉm Sơn</div>
+              <div class="time">13:58</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 23/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 23/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 27,040,000 vnd </span><br>Nội dung: thanh toán tiền màn máy tính+ máy tính mua ngày 20.05.2026</div>
+              <div class="time">01:46</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 23/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 500,000 vnd </span><br>Nội dung: cọc HD117. Cô Nga thanh xuân</div>
+              <div class="time">01:47</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 23/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 4,500,000 vnd </span><br>Nội dung: tất toán HD105. Chị Bảo Ngọc</div>
+              <div class="time">04:16</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 23/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 10,000,000 vnd </span><br>Nội dung: nạp tiền chạy ads page Vinasofa- May đo theo yêu cầu <br>( chuyển vào Tk cá nhân Vũ quản lý)</div>
+              <div class="time">04:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 23/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 1,000,000 vnd </span><br>Nội dung: cọc HD118. Chị Trung Vĩnh Phúc</div>
+              <div class="time">04:26</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 24/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 22/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 240,000 vnd </span><br>Nội dung: Ck thanh toán ship về<br>giát giường bảo hành chị Sơn Bắc Giang</div>
+              <div class="time">09:27</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 24/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 10,650,000vnd </span><br>Nội dung: tạm ứng công nợ VT Da Mia- Vinasofa.</div>
+              <div class="time">09:54</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 24/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 2,000,000  vnd </span><br>Nội dung: tạm ứng lương tháng 6 Uyên Việt Trì</div>
+              <div class="time">11:40</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 25/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 25/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 500,000 vnd </span><br>Nội dung: cọc HD120.Chị Hùng</div>
+              <div class="time">03:34</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 25/07/2026<br><span class="tag-thu">Tk tiền mặt Xuân.svl.+ 500,000 vnd </span><br>Nội dung: cọc HD121.anh Hoa</div>
+              <div class="time">04:03</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 25/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 1,000,000 vnd </span><br>Nội dung: cọc HD121.Chị Oanh Phú Thọ xuyên</div>
+              <div class="time">05:12</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 25/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 1,000,000 vnd </span><br>Nội dung: cọc HD122.Chị Oanh Phú Thọ xuyên</div>
+              <div class="time">07:04</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 25/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 5,000,000  </span><br>Nội dung: tạm ứng lương tháng 6 thợ Vinh</div>
+              <div class="time">08:57</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 25/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 1,000,000  </span><br>Nội dung: tạm ứng lương tháng 6 thợ anh Thảo Nam Định</div>
+              <div class="time">08:57</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 25/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 5,000,000  </span><br>Nội dung: tạm ứng lương tháng 6. A Giang Móng Cái</div>
+              <div class="time">08:58</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 26/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 26/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 2,000,000 vnđ </span><br>Nội dung: HD124. Anh Yến</div>
+              <div class="time">10:16</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 27/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 27/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 8,000,000 vnd </span><br>Nội dung: tất toán HD108. Chị Huệ Thanh Hóa giường</div>
+              <div class="time">09:40</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 27/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 500,000 vnd </span><br>Nội dung: thanh toán vận chuyển DH 124 (lấy về)</div>
+              <div class="time">09:47</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 27/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 1,000,000 vnd </span><br>Nội dung: trả lại KH Ck thừa DH108 c Huệ Thanh Hóa giường</div>
+              <div class="time">10:01</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 28/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 28/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 1,000,000 vnđ</span><br>Nội dung: HD125. cô Tùng</div>
+              <div class="time">07:23</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 28/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 209,568 vnd </span><br>Nội dung: thanh toán tiền via chạy ads Vinasofa</div>
+              <div class="time">07:37</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 28/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 6,500,000 vnd </span><br>Nội dung: tất toán HD101.chị Dũng</div>
+              <div class="time">07:48</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 27/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 400,000 vnd </span><br>Nội dung: thanh toán ship đệm a Bích Tùng Nam về bảo hành</div>
+              <div class="time">08:02</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 28/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 1,000,000 vnd </span><br>Nội dung: cọc HD126. Anh Diệp Từ Sơn phúc thọ</div>
+              <div class="time">09:46</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 28/07/2026<br><span class="tag-thu">Tk Xuân.svl.+ 500,000 vnd </span><br>Nội dung: cọc HD127. Anh Dũng Sóc Sơn</div>
+              <div class="time">14:05</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 28/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 40,000 vnd </span><br>Nội dung: thanh toán ship da HD118. Da Mia</div>
+              <div class="time">14:06</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 29/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 29/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 600,000 vnd</span><br>Nội dung: thanh toán tiền điện nước văn phòng</div>
+              <div class="time">08:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 29/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 800,000 vnđ</span><br>Nội dung: cọc HD130. chú Bằng Nam Định</div>
+              <div class="time">08:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 29/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 2,000,000</span><br>Nội dung: tạm ứng lương tháng 7</div>
+              <div class="time">08:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 29/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 3,000,000</span><br>Nội dung: tạm ứng lương tháng 7</div>
+              <div class="time">08:45</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 29/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 600,000 vnd</span><br>Nội dung: thanh toán tiền điện nước văn phòng</div>
+              <div class="time">09:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 29/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 800,000 vnđ</span><br>Nội dung: cọc HD131. anh Sang Hưng Yên</div>
+              <div class="time">09:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 30/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 30/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 1,200,000 vnđ</span><br>Nội dung: cọc HD132. chị Lam Thái Nguyên</div>
+              <div class="time">08:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 30/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 2,000,000</span><br>Nội dung: tạm ứng lương tháng 7</div>
+              <div class="time">08:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 30/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 2,500,000 vnđ</span><br>Nội dung: cọc HD133. chú Bằng Nam Định</div>
+              <div class="time">08:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 30/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 450,000 vnd</span><br>Nội dung: thanh toán tiền điện nước văn phòng</div>
+              <div class="time">08:45</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 30/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 1,200,000 vnđ</span><br>Nội dung: cọc HD134. anh Vĩ Thanh Hóa</div>
+              <div class="time">09:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 30/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 450,000 vnd</span><br>Nội dung: thanh toán tiền điện nước văn phòng</div>
+              <div class="time">09:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 31/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">O</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Gia Bảo</div>
+              
+              <div class="bubble">Ngày: 31/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 800,000 vnđ</span><br>Nội dung: cọc HD135. chị Thắm Bắc Ninh</div>
+              <div class="time">08:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 31/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 2,500,000 vnđ</span><br>Nội dung: cọc HD136. chị Thắm Bắc Ninh</div>
+              <div class="time">08:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 31/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 450,000 vnd</span><br>Nội dung: thanh toán tiền điện nước văn phòng</div>
+              <div class="time">08:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 31/07/2026<br><span class="tag-chi">Tk Xuân.svl. - 450,000 vnd</span><br>Nội dung: thanh toán tiền điện nước văn phòng</div>
+              <div class="time">08:45</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 31/07/2026<br><span class="tag-chi">Tk tiền mặt Xuân.svl:- 1,000,000</span><br>Nội dung: tạm ứng lương tháng 7</div>
+              <div class="time">09:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày: 31/07/2026<br><span class="tag-thu">Tk Tiền mặt Xuân.svl: + 800,000 vnđ</span><br>Nội dung: cọc HD137. anh Vĩ Thanh Hóa</div>
+              <div class="time">09:15</div>
+            </div>
+          </div>
+        
+      
+    </div>
+
+    <div class="footer">
+      <span>&#128512;</span>
+      <div class="box">Tin nhắn</div>
+      <span>&#128206;</span>
+      <span>&#128247;</span>
+    </div>
+  </div>
+
+  <script>
+    const area = document.getElementById('chatArea');
+    area.scrollTop = area.scrollHeight;
+  </script>
+</body>
+</html>

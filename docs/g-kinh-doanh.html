@@ -1,0 +1,1768 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Phòng Kinh Doanh</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #dfe6ec;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+  }
+  .phone {
+    width: 480px;
+    max-width: 100%;
+    height: 90vh;
+    background: #eef2f6;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .header {
+    background: #0068ff;
+    color: #fff;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .header .group-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: #0068ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .header .info { flex: 1; }
+  .header .info .name { font-weight: 600; font-size: 16px; }
+  .header .info .sub { font-size: 12px; opacity: .85; }
+  .header .icons { display: flex; gap: 16px; font-size: 18px; opacity: .9; }
+
+  .chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+    background: #eef2f6;
+  }
+  .chat-area::-webkit-scrollbar { width: 6px; }
+  .chat-area::-webkit-scrollbar-thumb { background: #c3cdd6; border-radius: 3px; }
+
+  .date-separator {
+    text-align: center;
+    margin: 14px 0;
+  }
+  .date-separator span {
+    background: #d8e0e8;
+    color: #5c6a76;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+
+  .msg-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  .avatar-slot { width: 30px; flex-shrink: 0; }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .msg-content { max-width: 78%; }
+  .sender-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 6px 0 2px 2px;
+  }
+  .bubble {
+    background: #fff;
+    border-radius: 14px;
+    padding: 8px 12px;
+    font-size: 14.5px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  }
+  .bubble .tag-thu { color: #1a9c50; font-weight: 700; }
+  .bubble .tag-chi { color: #d6392f; font-weight: 700; }
+  .time {
+    font-size: 10.5px;
+    color: #93a1ab;
+    margin: 3px 0 0 2px;
+  }
+
+  .footer {
+    flex-shrink: 0;
+    background: #fff;
+    border-top: 1px solid #e2e8ee;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #93a1ab;
+    font-size: 14px;
+  }
+  .footer .box {
+    flex: 1;
+    background: #f0f3f6;
+    border-radius: 18px;
+    padding: 8px 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="header">
+      
+      <a href="index.html" style="color:#fff; text-decoration:none; font-size:18px; margin-right:2px;" title="Danh sách nhóm">←</a>
+      
+      <div class="group-avatar">P</div>
+      <div class="info">
+        <div class="name">Phòng Kinh Doanh</div>
+        <div class="sub">8 thành viên · 101 tin nhắn</div>
+      </div>
+      <div class="icons"><a href="stats.html" style="color:#fff; text-decoration:none; font-size:13px; border:1px solid rgba(255,255,255,.6); border-radius:12px; padding:4px 10px;">Thống kê</a></div>
+    </div>
+
+    
+    <div style="display:flex; gap:6px; padding:8px 10px; background:#fff; border-bottom:1px solid #e2e8ee; overflow-x:auto; flex-shrink:0;">
+      
+      <a href="g-hop-dong.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Hợp đồng, Phát sinh, Quyết toán
+      </a>
+      
+      <a href="g-tai-chinh.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Phòng Tài Chính
+      </a>
+      
+      <a href="g-kinh-doanh.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#0068ff; color:#fff;">
+        Phòng Kinh Doanh
+      </a>
+      
+      <a href="g-nhan-su.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Phòng Nhân Sự
+      </a>
+      
+      <a href="g-marketing.html"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                background:#f0f3f6; color:#4b5a66;">
+        Phòng Marketing
+      </a>
+      
+    </div>
+    
+
+    <div class="chat-area" id="chatArea">
+      
+        
+          <div class="date-separator"><span>Ngày 21/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Vâng anh</div>
+              <div class="time">08:36</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0554f;">N</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0554f;">NV Ngọc Lan</div>
+              
+              <div class="bubble">21/7/2026<br>-  Trả lời tin nhắn FBads: 10 mess<br>- Tìm hiểu ý tưởng gốm cho mẫu mới - tiếp tục nghiên cứu<br>-  làm thêm mẫu mới để quay chụp - hoàn thành<br>- làm sườn cho series video gốm - hoàn thành<br>phát sinh: làm bình gốm cho khách</div>
+              <div class="time">10:48</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">22/7/2026<br>-  Trả lời tin nhắn FBads<br>- Tìm hiểu ý tưởng gốm cho mẫu mới - tiếp tục nghiên cứu<br>- Bọc gốm - bọc quà gửi ship<br>- Chụp ảnh mẫu mới</div>
+              <div class="time">10:49</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">21/7/2026<br>Hoàn thành <br>- giúp Hiếu hoàn thiện báo giá Trương Son <br>- check tiến độ 2 căn mới của Vũ và Oanh <br>- về làm việc cùng Hiếu và Anh Quân về xưởng 02</div>
+              <div class="time">11:26</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Thùy Linh</div>
+              
+              <div class="bubble">21/7/2026: hoàn thành: tư vấn báo giá KH; nhắn 1 số khách cũ; check tk chị Thoa và anh Quân Cầu Giấy; đăng ký ra vào nhà anh Phượng Gia Lâm</div>
+              <div class="time">12:34</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">22/7/2026: tư vấn KH; báo lịch anh Huy; gửi tk chị Thoa; check video mới; up bài zalo</div>
+              <div class="time">12:36</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">À</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Thu Hà</div>
+              
+              <div class="bubble">21/7/2026: tìm hiểu các vật liệu trong nội thất , cách ứng dụng vật liệu vào thiết kế nội thất,đăng bài lên Zalo , xuống xưởng cty</div>
+              <div class="time">13:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">22/7/2026: học thêm về sản phẩm của cty</div>
+              <div class="time">13:18</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">@NV Thùy Linh phúc nắm việc thêm nhà chú Thông ngày mai trên nhóm nội bộ </div>
+              <div class="time">14:54</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Em qua quay lại cảnh xẻ gỗ , xẻ xong cho chuyển gỗ qua nhà chú Thông</div>
+              <div class="time">14:54</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Bắt đầu chuyển qua chú Thông thì diện anh Hiếu </div>
+              <div class="time">14:54</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">22/7/2026<br>- tìm hiểu thêm kiến thức gỗ công nghiệp<br>- check khách soffa của Oanh và khách hàng của Phúc <br>- check tuyển dụng nhân sự đã giao Nga<br>- check công việc đã giao Hoa </div>
+              <div class="time">15:03</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Thùy Linh</div>
+              
+              <div class="bubble">@NV Hải Nam vâng ạ</div>
+              <div class="time">15:10</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">21/7 <br>Trực page<br>Care công trình chị quỳnh<br>Hẹn khách xin gặp</div>
+              <div class="time">16:03</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">22/7<br>Trực page<br>Điền ds khách sofa vào bảng chạy add</div>
+              <div class="time">16:03</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Chuẩn bị quay bộ sofa anh quyền</div>
+              <div class="time">16:04</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 22/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #d64f8f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #d64f8f;">NV Đức Huy</div>
+              
+              <div class="bubble">0964445169</div>
+              <div class="time">01:29</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Khách làm căn gỗ công nghiệp ở Ninh Bình</div>
+              <div class="time">01:29</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Vừa đăng bài hỏi mấy phút trc thôi</div>
+              <div class="time">01:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">@All mọi ng kết nối nhé</div>
+              <div class="time">01:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">ok em nhé!</div>
+              <div class="time">01:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">để anh xử lý</div>
+              <div class="time">01:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #d64f8f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #d64f8f;">NV Đức Huy</div>
+              
+              <div class="bubble">@NV Hải Nam anh xử lí nhé</div>
+              <div class="time">02:16</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">0866602302</div>
+              <div class="time">02:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">ok em</div>
+              <div class="time">02:21</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">@NV Thảo Nam Định Tùng em bắt đầu add zalo nhé</div>
+              <div class="time">02:21</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">22/7/2026<br>Anh gửi Hoa bảng danh sách khách hàng nhận nhà tại tòa chung cư wisteira ( chung cư mới tại cổng chào hoài đức, gần xưởng mình )</div>
+              <div class="time">02:26</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Hoa add zalo và nhắn tin: <br>mỗi sdt sẽ làm 3 việc <br>1. add zalo : Em chào anh chị, em bên nội thất cao cấp từ gỗ công nghiệp<br>2. nhắn tin vào zalo ( khách add bạn rồi hoặc khách chưa đồng ý đều nhắn được ) : Em chào anh chị! Em tên Hoa bên nội thất Nội Thất An Khang, bên em chuyên thiết kế và thi công nội thất cao cấp từ gỗ tự nhiên và gỗ công nghiệp cao cấp. Em được biết nhà mình tại căn.... đang có nhu cầu thiết kế thi công nội thất, em liên hệ để tư vấn anh chị. Nhà máy sản xuất của em 3000m2 cách dự án anh chị 5 phút di chuyển. <br>Em xin phép gửi anh chị video và bộ ảnh mới nhất em vừa bàn giao ( gửi bộ chị Huyền )<br>3. nhắn tin sms : sau 1 ngày nếu khách hàng trên zalo ko phản hồi tin nhắn : Em chào anh chị! Em tên Hoa bên nội thất Nội Thất An Khang, bên em chuyên thiết kế và thi công nội thất cao cấp từ gỗ tự nhiên và gỗ công nghiệp cao cấp. Em được biết nhà mình tại căn.... đang có nhu cầu thiết kế thi công nội thất, em liên hệ để tư vấn anh chị. Nhà máy sản xuất của em 3000m2 cách dự án anh chị 5 phút di chuyển. Em có gửi lời mời kết bạn trên zalo anh chị, em mong nhận được sự phản hồi từ anh chị nhé! Em cảm ơn!</div>
+              <div class="time">02:31</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #d64f8f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #d64f8f;">NV Đức Huy</div>
+              
+              <div class="bubble">0332 018 920</div>
+              <div class="time">02:41</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">NV Hải Nam ghim 1 tin nhắn link https://docs.google.com/spr....</div>
+              <div class="time">04:31</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">NV Hải Nam ghim 1 tin nhắn link https://docs.google.com/spr....</div>
+              <div class="time">04:34</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">23/7/2026<br>- sáng tới gửi tiếp tải nguyên cho Xuân<br>- hướng dẫn Đạt cách bóc tách và báo giá <br>- check kinh doanh của Oanh và của Phúc<br>- gợi ý tiếp PA truyền thông tiếp cho 2 page công nghiệp </div>
+              <div class="time">14:03</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">.</div>
+              <div class="time">15:58</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ngày mai có anh và Thắm biết mình phải làm j khi tới công ty à ^^</div>
+              <div class="time">15:59</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">23/7<br>Quay chụp bộ sofa anh Linh Đông Anh <br>Trực page</div>
+              <div class="time">16:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">@NV Hải Nam có emmm nữa</div>
+              <div class="time">16:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">À</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Thu Hà</div>
+              
+              <div class="bubble">22/7: thực hiện các yêu cầu anh Đạt giao</div>
+              <div class="time">16:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">23/7: tiếp tục thực hiện các yêu cầu anh Đạt giao và học thêm về sản phẩm của công ty</div>
+              <div class="time">16:18</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">Phòng mình đừng ai đăng ký sau 10h nhé . Và đừng để anh phải nhắc nha </div>
+              <div class="time">16:23</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">À</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Thu Hà</div>
+              
+              <div class="bubble">Vâng ạ</div>
+              <div class="time">16:24</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Thùy Linh</div>
+              
+              <div class="bubble">chưa gửi tk chị Thoa do chưa thiết kế xong</div>
+              <div class="time">17:58</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">đi quay video và care việc xẻ gỗ chú Thông</div>
+              <div class="time">18:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">23/7/2026: tư vấn KH; gửi mã cho bên đá và follow tiến độ; gửi tk chị Thoa và tổng hợp phản hồi; spam khách cũ</div>
+              <div class="time">18:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 23/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Thùy Linh</div>
+              
+              <div class="bubble">@NV Hải Nam dạ hiện tại chắc em vẫn muốn cầm page MC ạ</div>
+              <div class="time">01:10</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">@NV Thùy Linh OK em nhé! </div>
+              <div class="time">01:11</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0554f;">N</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0554f;">NV Ngọc Lan</div>
+              
+              <div class="bubble">@NV Hải Nam Em gửi cod đơn hàng chị Nhung Nguyễn Xiển giao thành công 4 bình gốm ạ ( KH không cọc)</div>
+              <div class="time">01:21</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">@NV Ngọc Lan anh nhận rồi nhé</div>
+              <div class="time">01:22</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Phúc tháng 7 sẽ bàn giao lại cho phòng kinh doanh sim và máy hotline kinh doanh + list khách hàng tiềm năng em đang có . <br>Khách tại vinhomes riverside nếu khách hẹn sang buổi hẹn tiếp theo thì báo anh, anh cùng anh Tùng sẽ xử lý cho em nha. <br>Phúc sẽ tập chung cho mảng mới được giao nhé!</div>
+              <div class="time">03:40</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">@NV Thùy Linh</div>
+              <div class="time">03:40</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Thùy Linh</div>
+              
+              <div class="bubble">Vâng anh ạ</div>
+              <div class="time">03:46</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">Anh nhận rồi nhé</div>
+              <div class="time">04:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Em gửi mẫu sofa chốt anh xem nha</div>
+              <div class="time">04:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Vâng</div>
+              <div class="time">04:18</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">khoanh đỏ j thế</div>
+              <div class="time">04:19</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">cấp kích thước từng hạng mục nhé</div>
+              <div class="time">04:20</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Bỏ may để trơn anh ạ</div>
+              <div class="time">04:20</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0554f;">N</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0554f;">NV Ngọc Lan</div>
+              
+              <div class="bubble">@NV Hải Nam Em gửi tiền cọc đơn hàng anh Phương Nghệ An đặt 4 bình gốm ạ</div>
+              <div class="time">10:34</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">Anh nhận rồi nhé </div>
+              <div class="time">10:36</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0554f;">N</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0554f;">NV Ngọc Lan</div>
+              
+              <div class="bubble">23/7/2026<br>-  Trả lời tin nhắn FBads: 9 mess<br>- Tìm hiểu ý tưởng gốm cho mẫu mới - tiếp tục nghiên cứu <br>- Chụp ảnh thêm mẫu mới - hoàn thành<br>-  Nghiên cứu các chủ đề kịch bản gốm khác- hoàn thành- tiép tục nghiên cứu mở rộng thêm một số chủ đề</div>
+              <div class="time">10:48</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">24/7/2026<br>-  Trả lời tin nhắn FBads<br>- Tìm hiểu ý tưởng gốm cho mẫu mới - tiếp tục nghiên cứu<br>- Làm bình gốm cho khách</div>
+              <div class="time">10:49</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Hoàn thành</div>
+              <div class="time">10:49</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">24/7 <br>Triển khai bộ sofa <br>Hẹn lịch khách phúc thọ cuối tuần dẫn qua thổ tang</div>
+              <div class="time">10:50</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Trực page</div>
+              <div class="time">10:50</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">Sáng mai 8h05-8h30 <br>Oanh gặp riêng anh về page Soffa: anh chưa ưng ý với cách tư vấn trên page soffa.<br>8h30-9H: Chi và Hoa gặp riêng anh để bắt đầu có kịch bản trả lời khách cho Nội Thất An Khang </div>
+              <div class="time">12:28</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Vâng anh</div>
+              <div class="time">12:29</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">Tối nay Oanh cho anh trước cách câu trả lời khi khách muốn báo giá bộ Soffa </div>
+              <div class="time">12:29</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Ví dụ <br>Anh muốn tư vấn báo giá bộ Soffa này.</div>
+              <div class="time">12:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Kịch bản trả lời trên tin nhắn của em trên mess thế nào. <br>Em nhắn lên đây để mọi người cùng biết </div>
+              <div class="time">12:31</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">À</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Thu Hà</div>
+              
+              <div class="bubble">Vâng ạ</div>
+              <div class="time">12:47</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">Làm được :<br>- hướng dẫn 3 nhân sự kinh doanh mới bóc tách báo giá sơ bộ gỗ óc chó: chưa kiểm tra kết quả <br>- chuyển công việc từ Phúc qua cho Nhật quản lý <br>- đi thăm quan một số xưởng sx gỗ công nghiệp ở thạch thất <br>- chụp ảnh làm truyền thông cho 3 page <br></div>
+              <div class="time">12:57</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">24/7/2026<br>- trao đổi nhanh 1H với Oanh và Hoa , mỗi bạn 30 phút <br>- check kết quả bóc tách sơ bộ của 3 bạn kinh doanh và hướng dẫn bóc chi tiết theo bản vẽ <br>- lấy giá sx gỗ công nghiệp từ loại rẻ nhất tới cao cấp của một số xưởng sx <br>- gửi thêm tài nguyên cho savisoffa may đo <br>- tìm data khách trước mua để giao thêm việc thụ động cho kinh doanh </div>
+              <div class="time">13:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #8657d6;">À</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #8657d6;">NV Thu Hà</div>
+              
+              <div class="bubble">23/7/2026 : Học bóc tách báo giá nội thất</div>
+              <div class="time">13:24</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">24/7/2026: Cùng Chi trao đổi với anh Đạt để có kịch bản trả lời khách trên Nội Thất An Khang</div>
+              <div class="time">13:26</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #e0a72e;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #e0a72e;">NV Thùy Linh</div>
+              
+              <div class="bubble">hoàn thành, bàn giao cv nhà a Phượng Gia Lâm cho a Nhật, hỗ trợ hướng dẫn 1 số hạng mục cho 3 KD mới</div>
+              <div class="time">23:55</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">24/7/2026: tư vấn, tổng hợp lại ds KH; tiếp tục spam các KH cũ; check và up video tiktok</div>
+              <div class="time">23:56</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 24/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">24/7/2026<br>Test kịch bản cùng @NV Minh Anh</div>
+              <div class="time">01:13</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Tôi quan tâm tới bộ sofa này</div>
+              <div class="time">01:13</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Em chào anh chị ạ, bộ sofa anh chị đang quam tâm được Mộc Chất thiết kế may đo cho căn nhà phố 100m2 tại Vĩnh Phúc, bộ sofa sử dụng chất liệu gỗ óc chó kết hợp da Microfiber chống ẩm cao cấp. Nhà anh chị ở đâu vậy ạ?</div>
+              <div class="time">01:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">Đợt này em hay hỏi trên page luôn, nhà ở đâu và nhu cầu gì xong em báo giá luôn trên page, còn khách làm mới em cố gắng xin sdt để chăm tiếp</div>
+              <div class="time">01:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">giá</div>
+              <div class="time">01:17</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Giá bộ sofa bên em tùy vào chất liệu gỗ và da giá sẽ giao động từ 180-270tr cho bộ sofa tại công trình ạ</div>
+              <div class="time">01:18</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">chi tiết</div>
+              <div class="time">01:19</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">@NV Minh Anh ( .... câu này loại, ko tư vấn thêm )</div>
+              <div class="time">01:19</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">@NV Minh Anh thay thế bằng câu : Bên em chuyên thiết kế thi công sofa cao cấp từ gỗ tự nhiên óc chó, sồi mỹ nhập khẩu bắc mỹ, đệm da ngồi sử dụng mút việt nhật cao cấp dàn lò xo và bọc da bò tự nhiên nhập khẩu italia hoặc da công nghiệp cao cấp microfiber. <br>Với bộ sofa anh chị vừa gửi bao gồm : <br>1<br>2<br>3<br>4 <br>Anh chị chủ nhà sử dụng Gỗ óc chó nhập khẩu Bắc Mỹ, đệm ngồi sủ dụng da công nghiệp cao cấp microfiber nhập khẩu <br>Đơn giá của bộ sofa  : <br>Tùy từng không gian khác nhau , kích thước của sofa sẽ khác nhau và tùy theo từng mức đầu tư của anh chị, em sẽ tư vấn các dòng gỗ và da khác nhau. Anh chị có muốn em tư vấn thêm về dòng gỗ và da khác cho bộ sofa không ạ.</div>
+              <div class="time">01:23</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3477eb;">H</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3477eb;">NV Minh Anh</div>
+              
+              <div class="bubble">Bên em chuyên thiết kế thi công sofa cao cấp từ gỗ tự nhiên Óc Chó, Sồi Mỹ nhập khẩu Bắc Mỹ. đệm da ngồi sử dụng mút Việt Nhật, dàn lò xo 2 lớp và bọc da bò tự nhiên nhập khẩu Italia hoặc da công nghiệp Microfiber. Với bộ sofa anh chị vừa gửi bao gồm:<br>1 văng dài 3 ghế 2500x900x750<br>2 văng 2 ghế 1900x900x750<br>1 bàn trà 1200x1200x430<br>2 đôn góc D=520x540<br>Anh chị chủ nhà sử dụng chất liệu gỗ Óc Chó nhập khẩu Bắc Mỹ kết hợp da công nghiệp Microfiber nhập khẩu, đơn giá của bộ sofa tùy từng không gian khác nhau, kích thước của sofa sẽ khác nhau và tùy theo mức đầu tư cảu anh chị , em sẽ tư vấn các dòng gỗ và da khác nhau. Anh chị có muốn em tư vấn them về dòng gỗ và da khác nhau cho bộ sofa không ạ?</div>
+              <div class="time">01:31</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #2ea86f;">M</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #2ea86f;">NV Hải Nam</div>
+              
+              <div class="bubble">giá</div>
+              <div class="time">01:32</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 29/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3fb0c9;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3fb0c9;">NV Thảo My</div>
+              
+              <div class="bubble">29/7/2026: chốt đơn khách quen; hẹn khách xem hàng tại xưởng; up bài lên Zalo/Facebook</div>
+              <div class="time">08:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">29/7/2026: kiểm tra tồn kho mẫu trưng bày; quay video sản phẩm mới; tư vấn khách mới qua page</div>
+              <div class="time">08:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #c97a3f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #c97a3f;">NV Quang Huy</div>
+              
+              <div class="bubble">29/7/2026: kiểm tra tồn kho mẫu trưng bày; quay video sản phẩm mới; gửi báo giá cho khách hỏi bàn ghế gỗ</div>
+              <div class="time">08:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">29/7/2026: tư vấn khách mới qua page; up bài lên Zalo/Facebook; kiểm tra tồn kho mẫu trưng bày</div>
+              <div class="time">08:45</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3fb0c9;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3fb0c9;">NV Thảo My</div>
+              
+              <div class="bubble">29/7/2026: quay video sản phẩm mới; kiểm tra tồn kho mẫu trưng bày; up bài lên Zalo/Facebook</div>
+              <div class="time">09:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 30/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #c97a3f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #c97a3f;">NV Quang Huy</div>
+              
+              <div class="bubble">30/7/2026: chốt đơn khách quen; gọi điện chăm sóc khách cũ; gửi báo giá cho khách hỏi bàn ghế gỗ</div>
+              <div class="time">08:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3fb0c9;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3fb0c9;">NV Thảo My</div>
+              
+              <div class="bubble">30/7/2026: hẹn khách xem hàng tại xưởng; tư vấn khách mới qua page; up bài lên Zalo/Facebook</div>
+              <div class="time">08:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #c97a3f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #c97a3f;">NV Quang Huy</div>
+              
+              <div class="bubble">30/7/2026: gọi điện chăm sóc khách cũ; quay video sản phẩm mới; tư vấn khách mới qua page</div>
+              <div class="time">08:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">30/7/2026: gửi báo giá cho khách hỏi bàn ghế gỗ; chốt đơn khách quen; gọi điện chăm sóc khách cũ</div>
+              <div class="time">08:45</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3fb0c9;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3fb0c9;">NV Thảo My</div>
+              
+              <div class="bubble">30/7/2026: tư vấn khách mới qua page; quay video sản phẩm mới; gọi điện chăm sóc khách cũ</div>
+              <div class="time">09:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="date-separator"><span>Ngày 31/07/2026</span></div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #c97a3f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #c97a3f;">NV Quang Huy</div>
+              
+              <div class="bubble">31/7/2026: tư vấn khách mới qua page; hẹn khách xem hàng tại xưởng; gọi điện chăm sóc khách cũ</div>
+              <div class="time">08:00</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">31/7/2026: gửi báo giá cho khách hỏi bàn ghế gỗ; tư vấn khách mới qua page; chốt đơn khách quen</div>
+              <div class="time">08:15</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #3fb0c9;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #3fb0c9;">NV Thảo My</div>
+              
+              <div class="bubble">31/7/2026: chốt đơn khách quen; up bài lên Zalo/Facebook; gửi báo giá cho khách hỏi bàn ghế gỗ</div>
+              <div class="time">08:30</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+            </div>
+            <div class="msg-content">
+              
+              <div class="bubble">31/7/2026: gọi điện chăm sóc khách cũ; chốt đơn khách quen; up bài lên Zalo/Facebook</div>
+              <div class="time">08:45</div>
+            </div>
+          </div>
+        
+      
+        
+          <div class="msg-row">
+            <div class="avatar-slot">
+              
+                <div class="avatar" style="background: #c97a3f;">Y</div>
+              
+            </div>
+            <div class="msg-content">
+              
+                <div class="sender-name" style="color: #c97a3f;">NV Quang Huy</div>
+              
+              <div class="bubble">31/7/2026: gọi điện chăm sóc khách cũ; hẹn khách xem hàng tại xưởng; quay video sản phẩm mới</div>
+              <div class="time">09:00</div>
+            </div>
+          </div>
+        
+      
+    </div>
+
+    <div class="footer">
+      <span>&#128512;</span>
+      <div class="box">Tin nhắn</div>
+      <span>&#128206;</span>
+      <span>&#128247;</span>
+    </div>
+  </div>
+
+  <script>
+    const area = document.getElementById('chatArea');
+    area.scrollTop = area.scrollHeight;
+  </script>
+</body>
+</html>

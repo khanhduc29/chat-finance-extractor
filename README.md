@@ -15,7 +15,9 @@ dạng giao diện chat + dashboard thống kê.
 ├── app.py                         # Ứng dụng Flask: xem hội thoại + trang thống kê
 ├── templates/
 │   ├── index.html                 # Giao diện chat mô phỏng Zalo
-│   └── stats.html                 # Dashboard thống kê (theo loại/nhân viên/tài khoản/ngày)
+│   └── stats.html                 # Dashboard thống kê (biểu đồ + theo loại/nhân viên/tài khoản/ngày)
+├── build_static_demo.py           # Render 2 route Flask thành HTML tĩnh trong docs/ (để deploy GitHub Pages)
+├── docs/                          # Bản demo tĩnh (index.html, stats.html) — nguồn cho GitHub Pages
 ├── Bao_cao_Phan_ra_Du_lieu_Thu_Chi.docx  # Báo cáo mô tả quy trình & cách phân rã
 └── README.md
 ```
@@ -48,9 +50,40 @@ dạng giao diện chat + dashboard thống kê.
 
    Mở trình duyệt tại:
    - `http://127.0.0.1:5000/` — giao diện chat mô phỏng Zalo
-   - `http://127.0.0.1:5000/stats` — dashboard thống kê (tổng quan, giao dịch gần đây,
-     theo loại giao dịch, theo nhân viên, theo tài khoản, theo ngày — bấm vào từng
-     dòng để xem chi tiết)
+   - `http://127.0.0.1:5000/stats` — dashboard thống kê (biểu đồ xu hướng, dòng tiền
+     luỹ kế, cơ cấu chi phí theo tuần, tỷ trọng theo loại, giao dịch gần đây, theo loại
+     giao dịch, theo nhân viên, theo tài khoản, theo ngày — bấm vào từng dòng để xem chi tiết)
+
+## Demo tĩnh (GitHub Pages)
+
+Hai trang trên chỉ cần Flask để *render* (Jinja + tính toán tọa độ biểu đồ), không có
+phần nào chạy phía server lúc người xem tải trang — nên có thể "đóng băng" HTML đã
+render sẵn thành file tĩnh và host miễn phí bằng GitHub Pages, không cần server Python
+lúc chạy demo.
+
+1. Sinh lại file tĩnh (sau khi đổi dữ liệu/giao diện thì chạy lại bước này):
+
+   ```bash
+   python build_static_demo.py
+   ```
+
+   Lệnh này gọi 2 route `/` và `/stats` của Flask app qua test client, sửa lại các
+   link nội bộ (`/stats` → `stats.html`, `/` → `index.html`), rồi ghi ra
+   `docs/index.html` và `docs/stats.html` (kèm `docs/.nojekyll` để GitHub không chạy
+   qua Jekyll).
+
+2. Commit và đẩy thư mục `docs/` lên GitHub.
+
+3. Vào **Settings → Pages** của repo trên GitHub, chọn **Source: Deploy from a
+   branch**, **Branch: master** (hoặc branch bạn dùng), thư mục **/docs**, rồi Save.
+
+4. Sau vài phút, demo sẽ có ở
+   `https://<username>.github.io/<tên-repo>/` (trang chat) và
+   `https://<username>.github.io/<tên-repo>/stats.html` (dashboard thống kê).
+
+Lưu ý: đây là bản chụp nhanh dữ liệu tại thời điểm chạy `build_static_demo.py`, không
+tự cập nhật — muốn demo phản ánh dữ liệu mới thì chạy lại `extract_transactions.py`
+rồi `build_static_demo.py` và push lại.
 
 ## Quy trình phân rã (tóm tắt)
 

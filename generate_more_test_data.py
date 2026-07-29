@@ -77,6 +77,17 @@ def business_hour(day, i):
     return day.replace(hour=8, minute=0, second=0) + timedelta(minutes=15 * i)
 
 
+# Extra synthetic staff who also report thu-chi in these two groups —
+# distinct from "NV Gia Bảo" (the real accountant, anonymized), so the
+# synthetic portion of the data shows more than one name reporting.
+HOP_DONG_STAFF = [
+    ("syn_xuan", "NV Gia Bảo"), ("syn_nhung", "NV Hồng Nhung"), ("syn_quan2", "NV Minh Quân"),
+]
+TAI_CHINH_STAFF = [
+    ("syn_xuan", "NV Gia Bảo"), ("syn_duong", "NV Thùy Dương"), ("syn_khoa", "NV Đăng Khoa"),
+]
+
+
 def gen_hop_dong_extra():
     group_id = EXISTING_GROUPS["hop-dong"]
     msgs = []
@@ -84,6 +95,7 @@ def gen_hop_dong_extra():
     for day_offset in range(6):
         day = datetime(2026, 7, 29) + timedelta(days=day_offset)
         for i in range(8):
+            sid, name = random.choice(HOP_DONG_STAFF)
             customer = random.choice(FAKE_CUSTOMERS)
             amount = random.choice([500_000, 1_000_000, 1_500_000, 2_000_000, 3_000_000, 4_500_000])
             action = random.choice(["cọc", "tất toán", "tất toán", "hoàn cọc"])
@@ -93,7 +105,7 @@ def gen_hop_dong_extra():
                 f"Tk Xuân.svl.{sign} {amount:,} vnd\n"
                 f"Nội dung: {action} HD{invoice}. {customer}"
             )
-            msgs.append(make_message(group_id, "syn_xuan", "NV Gia Bảo", text, business_hour(day, i)))
+            msgs.append(make_message(group_id, sid, name, text, business_hour(day, i)))
             invoice += 1
     return msgs
 
@@ -105,6 +117,7 @@ def gen_tai_chinh_extra():
     for day_offset in range(6):
         day = datetime(2026, 7, 29) + timedelta(days=day_offset)
         for i in range(7):
+            sid, name = random.choice(TAI_CHINH_STAFF)
             kind = random.choice(["coc", "cash_advance", "office", "thu_no", "van_chuyen", "marketing"])
             if kind == "coc":
                 customer = random.choice(FAKE_CUSTOMERS)
@@ -152,7 +165,7 @@ def gen_tai_chinh_extra():
                     f"Tk Xuân.svl. - {amount:,} vnd\n"
                     f"Nội dung: chạy ads quảng cáo Facebook"
                 )
-            msgs.append(make_message(group_id, "syn_xuan", "NV Gia Bảo", text, business_hour(day, i)))
+            msgs.append(make_message(group_id, sid, name, text, business_hour(day, i)))
     return msgs
 
 

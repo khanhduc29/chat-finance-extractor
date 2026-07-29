@@ -132,10 +132,19 @@ def anonymize_messages(messages, customer_mapping, staff_mapping):
     # Longest name first everywhere, so e.g. "Kim Oanh Mộc Chất Smv Group"
     # is replaced before a shorter unrelated match (like bare "Smv") could
     # interfere with it.
-    text_mapping = {**customer_mapping, **staff_mapping, **BRAND_MAPPING}
+    #
+    # Customer/staff names must stay case-SENSITIVE: a short real first name
+    # (e.g. "Dung") can be a substring-match of an ordinary Vietnamese word
+    # ("Nội dung") under IGNORECASE, silently wiping message content. Brand
+    # terms are safe to match case-insensitively since they're not common
+    # words (catches stray lowercase "savisofa" etc. in free-form chat).
+    name_mapping = {**customer_mapping, **staff_mapping}
     compiled = [
         (re.compile(r"\b" + re.escape(real) + r"\b"), fake)
-        for real, fake in sorted(text_mapping.items(), key=lambda kv: len(kv[0]), reverse=True)
+        for real, fake in sorted(name_mapping.items(), key=lambda kv: len(kv[0]), reverse=True)
+    ] + [
+        (re.compile(r"\b" + re.escape(real) + r"\b", re.IGNORECASE), fake)
+        for real, fake in sorted(BRAND_MAPPING.items(), key=lambda kv: len(kv[0]), reverse=True)
     ]
 
     anonymized = []

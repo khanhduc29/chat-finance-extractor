@@ -1,10 +1,18 @@
 """
 Bulk up the multi-group demo with more test volume:
   1. More messages appended to the 3 existing (real, anonymized) groups,
-     continuing each group's own established style/format.
-  2. Two brand-new, entirely fictional department groups (Phòng Nhân Sự,
-     Phòng Marketing) with their own distinct chat style, to exercise the
-     multi-group interface with more variety.
+     continuing each group's own established style/format, with more days
+     and more variety of transaction/task types than the first pass.
+  2. Three brand-new, entirely fictional department groups (Phòng Nhân Sự,
+     Phòng Marketing, Phòng Kho - Vận Chuyển) with their own distinct chat
+     style, to exercise the multi-group interface with more variety.
+
+This script is meant to be run ONCE against the real anonymized baseline
+(data/anonymized_zalo_data.json right after anonymize_real_data.py, i.e.
+165 messages, no synthetic bulk yet) — re-running it against its own
+previous output would duplicate every message. If you need to regenerate,
+reset the baseline first:
+    git show <baseline-commit>:data/anonymized_zalo_data.json > data/anonymized_zalo_data.json
 
 Everything generated here is synthetic from the start — no real customer/
 staff data involved, so none of it needs to go through anonymize_real_data.py.
@@ -34,11 +42,14 @@ EXISTING_GROUPS = {
 NEW_GROUPS = {
     "nhan-su": {"group_id": "TEST_GROUP_NHAN_SU_0001", "name": "Phòng Nhân Sự"},
     "marketing": {"group_id": "TEST_GROUP_MARKETING_0001", "name": "Phòng Marketing"},
+    "kho-van-chuyen": {"group_id": "TEST_GROUP_KHOVC_0001", "name": "Phòng Kho - Vận Chuyển"},
 }
 
 FAKE_CUSTOMERS = [
     "chị Lam Thái Nguyên", "anh Kiệt Vinh", "cô Nhàn Hải Phòng", "chú Bằng Nam Định",
     "chị Thắm Bắc Ninh", "anh Sang Hưng Yên", "chị Yên Ninh Bình", "anh Vĩ Thanh Hóa",
+    "chị Diệu Quảng Ninh", "anh Phát Hải Dương", "cô Xuyến Vĩnh Phúc", "chú Đạt Phú Thọ",
+    "chị Ngọc Bắc Giang", "anh Hoàng Thái Bình",
 ]
 
 _msg_counter = 0
@@ -70,13 +81,13 @@ def gen_hop_dong_extra():
     group_id = EXISTING_GROUPS["hop-dong"]
     msgs = []
     invoice = 128
-    for day_offset in range(3):
+    for day_offset in range(6):
         day = datetime(2026, 7, 29) + timedelta(days=day_offset)
-        for i in range(7):
+        for i in range(8):
             customer = random.choice(FAKE_CUSTOMERS)
-            amount = random.choice([500_000, 1_000_000, 1_500_000, 2_000_000, 3_000_000])
-            sign = "+"
-            action = random.choice(["cọc", "tất toán"])
+            amount = random.choice([500_000, 1_000_000, 1_500_000, 2_000_000, 3_000_000, 4_500_000])
+            action = random.choice(["cọc", "tất toán", "tất toán", "hoàn cọc"])
+            sign = "-" if action == "hoàn cọc" else "+"
             text = (
                 f"Ngày: {day.day:02d}/07/2026\n"
                 f"Tk Xuân.svl.{sign} {amount:,} vnd\n"
@@ -91,10 +102,10 @@ def gen_tai_chinh_extra():
     group_id = EXISTING_GROUPS["tai-chinh"]
     msgs = []
     invoice = 130
-    for day_offset in range(3):
+    for day_offset in range(6):
         day = datetime(2026, 7, 29) + timedelta(days=day_offset)
-        for i in range(6):
-            kind = random.choice(["coc", "cash_advance", "office"])
+        for i in range(7):
+            kind = random.choice(["coc", "cash_advance", "office", "thu_no", "van_chuyen", "marketing"])
             if kind == "coc":
                 customer = random.choice(FAKE_CUSTOMERS)
                 amount = random.choice([800_000, 1_200_000, 2_500_000])
@@ -111,12 +122,35 @@ def gen_tai_chinh_extra():
                     f"Tk tiền mặt Xuân.svl:- {amount:,}\n"
                     f"Nội dung: tạm ứng lương tháng 7"
                 )
-            else:
+            elif kind == "office":
                 amount = random.choice([300_000, 450_000, 600_000])
                 text = (
                     f"Ngày: {day.day:02d}/07/2026\n"
                     f"Tk Xuân.svl. - {amount:,} vnd\n"
                     f"Nội dung: thanh toán tiền điện nước văn phòng"
+                )
+            elif kind == "thu_no":
+                customer = random.choice(FAKE_CUSTOMERS)
+                amount = random.choice([1_500_000, 2_000_000, 3_500_000])
+                text = (
+                    f"Ngày: {day.day:02d}/07/2026\n"
+                    f"Tk Xuân.svl. + {amount:,} vnd\n"
+                    f"Nội dung: thu công nợ HD{invoice}. {customer}"
+                )
+                invoice += 1
+            elif kind == "van_chuyen":
+                amount = random.choice([150_000, 280_000, 400_000])
+                text = (
+                    f"Ngày: {day.day:02d}/07/2026\n"
+                    f"Tk tiền mặt Xuân.svl: - {amount:,}\n"
+                    f"Nội dung: chi phí ship hàng cho khách"
+                )
+            else:
+                amount = random.choice([500_000, 1_000_000, 1_800_000])
+                text = (
+                    f"Ngày: {day.day:02d}/07/2026\n"
+                    f"Tk Xuân.svl. - {amount:,} vnd\n"
+                    f"Nội dung: chạy ads quảng cáo Facebook"
                 )
             msgs.append(make_message(group_id, "syn_xuan", "NV Gia Bảo", text, business_hour(day, i)))
     return msgs
@@ -126,16 +160,18 @@ KINH_DOANH_TASKS = [
     "tư vấn khách mới qua page", "chốt đơn khách quen", "gọi điện chăm sóc khách cũ",
     "gửi báo giá cho khách hỏi bàn ghế gỗ", "quay video sản phẩm mới", "up bài lên Zalo/Facebook",
     "kiểm tra tồn kho mẫu trưng bày", "hẹn khách xem hàng tại xưởng",
+    "theo dõi đơn hàng đang giao", "xử lý khách hàng đổi trả", "báo giá dự án khách sạn mới",
+    "tổng hợp doanh số tuần", "đào tạo sản phẩm mới cho nhân viên",
 ]
 
 
 def gen_kinh_doanh_extra():
     group_id = EXISTING_GROUPS["kinh-doanh"]
-    staff = [("syn_kd1", "NV Thảo My"), ("syn_kd2", "NV Quang Huy")]
+    staff = [("syn_kd1", "NV Thảo My"), ("syn_kd2", "NV Quang Huy"), ("syn_kd3", "NV Hải Đăng")]
     msgs = []
-    for day_offset in range(3):
+    for day_offset in range(6):
         day = datetime(2026, 7, 29) + timedelta(days=day_offset)
-        for i in range(5):
+        for i in range(6):
             sid, name = random.choice(staff)
             tasks = random.sample(KINH_DOANH_TASKS, k=3)
             text = f"{day.day}/7/2026: " + "; ".join(tasks)
@@ -154,14 +190,19 @@ NHAN_SU_MESSAGES = [
     "Tuyển thêm 1 bạn nhân viên giao hàng, mọi người giới thiệu giúp em với",
     "Sinh nhật bạn Hằng phòng kinh doanh hôm nay, mọi người qua chúc mừng nhé",
     "Đã cập nhật nội quy công ty bản mới, gửi vào nhóm để mọi người đọc",
+    "Thông báo lịch nghỉ lễ 2/9, công ty nghỉ 2 ngày, đi làm bù thứ 7 tuần trước đó",
+    "Danh sách nhân viên thử việc sắp hết hạn tháng 8, các trưởng phòng đánh giá gửi em trước 5/8",
+    "Nhắc mọi người nộp hóa đơn công tác phí tháng 7 trước cuối tuần để làm lương",
+    "Bên bảo hiểm gọi xác nhận lại danh sách tham gia BHXH quý 3, ai thiếu thông tin báo em",
+    "Tổ chức team building cuối quý, mọi người khảo sát địa điểm giúp em trong link",
 ]
 
 
 def gen_nhan_su():
     group_id = NEW_GROUPS["nhan-su"]["group_id"]
-    staff = [("syn_hr1", "NV Bích Ngọc"), ("syn_hr2", "NV Trọng Nghĩa")]
+    staff = [("syn_hr1", "NV Bích Ngọc"), ("syn_hr2", "NV Trọng Nghĩa"), ("syn_hr3", "NV Việt Hà")]
     msgs = []
-    for day_offset in range(4):
+    for day_offset in range(6):
         day = datetime(2026, 7, 28) + timedelta(days=day_offset)
         for i in range(5):
             sid, name = random.choice(staff)
@@ -181,18 +222,52 @@ MARKETING_MESSAGES = [
     "Đã gửi content calendar tháng 8 vào nhóm, mọi người xem góp ý giúp em",
     "Booking KOL review sản phẩm tuần sau, đang chờ báo giá",
     "Bài viết blog về cách chọn sofa phòng khách nhỏ lên top tìm kiếm rồi mọi người",
+    "Mẫu banner Trung Thu đã xong, gửi anh duyệt trước khi in standee",
+    "Thống kê tuần này: fanpage tăng 340 follow mới, chủ yếu từ ads khu vực Hà Nội",
+    "Có khách inbox hỏi giá sofa da thật, đã chuyển thông tin qua nhóm kinh doanh",
+    "Chuẩn bị kịch bản livestream giới thiệu bộ sưu tập mới cuối tuần này",
+    "Ngân sách ads tháng 8 đã duyệt, tăng 15% so với tháng 7 tập trung vào video",
 ]
 
 
 def gen_marketing():
     group_id = NEW_GROUPS["marketing"]["group_id"]
-    staff = [("syn_mk1", "NV Diễm My"), ("syn_mk2", "NV Anh Tuấn")]
+    staff = [("syn_mk1", "NV Diễm My"), ("syn_mk2", "NV Anh Tuấn"), ("syn_mk3", "NV Bảo Trân")]
     msgs = []
-    for day_offset in range(4):
+    for day_offset in range(6):
         day = datetime(2026, 7, 28) + timedelta(days=day_offset)
         for i in range(5):
             sid, name = random.choice(staff)
             text = random.choice(MARKETING_MESSAGES)
+            msgs.append(make_message(group_id, sid, name, text, business_hour(day, i)))
+    return msgs
+
+
+KHO_VC_MESSAGES = [
+    "Kiểm kho sáng nay: còn 4 bộ sofa vải mã SF-102, 2 bộ da mã SF-205",
+    "Đơn hàng HD125 đã đóng gói xong, chờ xe giao lúc 2h chiều",
+    "Xe giao hàng khu vực quận 7 bị trễ do kẹt xe, báo khách dời sang chiều",
+    "Nhập thêm 20 khung ghế gỗ từ xưởng, đã nhập kho xong",
+    "Khách trả lại 1 bộ bàn ăn do lỗi vận chuyển, đang kiểm tra để đổi mới",
+    "Chốt danh sách hàng xuất kho trong tuần, gửi phòng kinh doanh đối chiếu",
+    "Kho nguyên liệu vải bọc sắp hết, cần đặt thêm trước cuối tháng",
+    "Đã giao xong 5 đơn khu vực nội thành, còn 2 đơn ngoại thành hẹn mai",
+    "Kiểm tra lại số lượng ghế trưng bày ở showroom, thiếu 1 cái so với sổ kho",
+    "Đóng gói cẩn thận đơn hàng đi tỉnh xa, khách yêu cầu bọc thêm lớp chống ẩm",
+    "Lịch giao hàng thứ 7 tuần này dồn nhiều đơn, cần thêm 1 xe tải hỗ trợ",
+    "Đã nhận hàng trả về từ khách hủy đơn HD119, nhập lại kho",
+]
+
+
+def gen_kho_van_chuyen():
+    group_id = NEW_GROUPS["kho-van-chuyen"]["group_id"]
+    staff = [("syn_kho1", "NV Đức Thịnh"), ("syn_kho2", "NV Xuân Mai")]
+    msgs = []
+    for day_offset in range(6):
+        day = datetime(2026, 7, 28) + timedelta(days=day_offset)
+        for i in range(4):
+            sid, name = random.choice(staff)
+            text = random.choice(KHO_VC_MESSAGES)
             msgs.append(make_message(group_id, sid, name, text, business_hour(day, i)))
     return msgs
 
@@ -203,7 +278,7 @@ def main():
 
     new_messages = (
         gen_hop_dong_extra() + gen_tai_chinh_extra() + gen_kinh_doanh_extra()
-        + gen_nhan_su() + gen_marketing()
+        + gen_nhan_su() + gen_marketing() + gen_kho_van_chuyen()
     )
     print(f"Existing messages: {len(existing)}")
     print(f"New synthetic messages: {len(new_messages)}")

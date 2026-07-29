@@ -48,6 +48,11 @@ GROUPS = [
         "group_id": "TEST_GROUP_MARKETING_0001",
         "name": "Phòng Marketing",
     },
+    {
+        "slug": "kho-van-chuyen",
+        "group_id": "TEST_GROUP_KHOVC_0001",
+        "name": "Phòng Kho - Vận Chuyển",
+    },
 ]
 GROUPS_BY_SLUG = {g["slug"]: g for g in GROUPS}
 

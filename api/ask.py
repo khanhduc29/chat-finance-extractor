@@ -5,9 +5,9 @@ route so the same frontend fetch('/api/ask') call works whether the page
 is served by `python app.py` locally or by the Vercel deployment.
 
 Vercel auto-detects any api/*.py file as a Serverless Function and routes
-POST /api/ask here — no extra config needed. Requires the transactions.json
-data file (repo root) to be present in the deployment, which it is by
-default.
+POST /api/ask here — no extra config needed. Requires the
+real_transactions_anon.json data file (repo root) to be present in the
+deployment, which it is by default.
 """
 import json
 import os
@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from qa_engine import ask_openai, build_qa_context  # noqa: E402
 
-TRANSACTIONS_FILE = Path(__file__).resolve().parent.parent / "transactions.json"
+TRANSACTIONS_FILE = Path(__file__).resolve().parent.parent / "real_transactions_anon.json"
 
 
 class handler(BaseHTTPRequestHandler):

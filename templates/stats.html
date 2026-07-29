@@ -203,7 +203,7 @@
           <div class="content">{{ t.content }}</div>
           <div class="tags">
             <span class="tag-pill">{{ t.category_label }}</span>
-            <span class="tag-pill">{{ t.account }}</span>
+            <span class="tag-pill">{{ t.account_holder }} · {{ t.bank_code.upper() }}</span>
           </div>
         </div>
         <div>
@@ -254,7 +254,7 @@
           <div class="detail-inner">
             {% for t in e.transactions %}
             <div class="detail-tx">
-              <div class="who">{{ t.date_display }} · {{ t.account }}</div>
+              <div class="who">{{ t.date_display }} · {{ t.account_holder }} ({{ t.bank_code.upper() }})</div>
               <div class="content">
                 <span class="tag-pill">{{ t.category_label }}</span>
                 {{ t.content }}
@@ -272,18 +272,20 @@
   </div>
 
   <div class="panel">
-    <h2>🏦 Theo tài khoản <span class="hint">nhóm theo tài khoản ngân hàng dùng để thực hiện giao dịch — bấm vào một dòng để xem chi tiết</span></h2>
+    <h2>🏦 Theo tài khoản <span class="hint">nhóm theo chủ tài khoản + mã ngân hàng dùng để thực hiện giao dịch — bấm vào một dòng để xem chi tiết</span></h2>
     <table>
-      <tr><th>Tài khoản</th><th class="num">Thu</th><th class="num">Chi</th><th class="num">Số GD</th></tr>
+      <tr><th>Chủ tài khoản</th><th>Ngân hàng</th><th class="num">Thu</th><th class="num">Chi</th><th class="num">Số GD</th></tr>
       {% for a in by_account %}
+      {% set first = a.transactions[0] %}
       <tr class="date-row" data-target="acc-{{ loop.index }}" onclick="toggleDay('acc-{{ loop.index }}', this)">
-        <td><span class="chev">▶</span>{{ a.label }}</td>
+        <td><span class="chev">▶</span>{{ first.account_holder }}</td>
+        <td><span class="tag-pill">{{ first.bank_code.upper() }}</span></td>
         <td class="num thu-color">{{ "{:,}".format(a.thu) }}</td>
         <td class="num chi-color">{{ "{:,}".format(a.chi) }}</td>
         <td class="num">{{ a.count }}</td>
       </tr>
       <tr class="detail-row" id="acc-{{ loop.index }}">
-        <td colspan="4">
+        <td colspan="5">
           <div class="detail-inner">
             {% for t in a.transactions %}
             <div class="detail-tx">

@@ -222,6 +222,7 @@ def parse_message(item):
         date_iso = f"{y}-{mth}-{d}"
 
     account = account_m.group(1).strip() if account_m else None
+    account_holder, bank_code = account.rsplit(".", 1) if account and "." in account else (account, None)
     sign = account_m.group(2) if account_m else None
     amount_raw = account_m.group(3) if account_m else None
     amount = int(amount_raw.replace(",", "").replace(".", "")) if amount_raw else None
@@ -244,6 +245,8 @@ def parse_message(item):
         "date_display": date_str,
         "timestamp": item["timestamp"]["$date"],
         "account": account,
+        "account_holder": account_holder,
+        "bank_code": bank_code,
         "direction": direction,
         "amount": amount,
         "currency": "VND",
@@ -277,6 +280,7 @@ def main():
 
     fieldnames = [
         "transaction_id", "message_id", "date", "sender_name", "account",
+        "account_holder", "bank_code",
         "direction", "amount", "currency", "category_label", "action",
         "objects", "roles", "locations", "time_period", "counterparty",
         "order_ref", "content",

@@ -162,11 +162,25 @@ def load_transactions():
         return json.load(f)
 
 
+WARNING_LABELS = {
+    "missing_content": "Thiếu nội dung",
+    "missing_amount_or_account": "Thiếu số tiền/tài khoản",
+    "missing_date": "Thiếu ngày",
+}
+
+
 def display_tx(t):
+    if t["direction"] == "thu":
+        direction_label = "Thu"
+    elif t["direction"] == "chi":
+        direction_label = "Chi"
+    else:
+        direction_label = "?"
     return {
         **t,
         "amount_fmt": f"{t['amount']:,}" if t["amount"] else "-",
-        "direction_label": "Thu" if t["direction"] == "thu" else "Chi",
+        "direction_label": direction_label,
+        "warning_labels": [WARNING_LABELS.get(w, w) for w in (t.get("parse_warnings") or [])],
     }
 
 
@@ -433,6 +447,7 @@ def stats():
 
     recent = sorted(rows, key=lambda t: t["timestamp"], reverse=True)[:15]
     recent = [display_tx(t) for t in recent]
+    flagged_transactions = [display_tx(t) for t in sorted(flagged, key=lambda t: t["timestamp"], reverse=True)]
 
     return render_template(
         "stats.html",
@@ -442,6 +457,7 @@ def stats():
         total_chi=total_chi,
         net=total_thu - total_chi,
         flagged_count=len(flagged),
+        flagged_transactions=flagged_transactions,
         by_category=by_category,
         by_employee=by_employee,
         by_account=by_account,

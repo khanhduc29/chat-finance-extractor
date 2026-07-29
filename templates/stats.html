@@ -132,6 +132,7 @@
     font-size: 10.5px; color: var(--blue-dark); background: #e9f1ff;
     padding: 2px 8px; border-radius: 10px; font-weight: 600;
   }
+  .tag-pill.warn-pill { color: #a35b00; background: #fff1de; }
   .recent-amount { text-align: right; font-weight: 800; font-size: 14px; white-space: nowrap; }
 
   /* --- Expandable date rows --- */
@@ -494,6 +495,36 @@
   <div class="panel">
     <h2>⚠️ Cảnh báo</h2>
     <p>{{ flagged_count }} giao dịch thiếu trường bắt buộc (ngày/số tiền/nội dung) — cần soát lại thủ công.</p>
+    <div class="recent-list">
+      {% for t in flagged_transactions %}
+      <div class="recent-row">
+        <div class="recent-when"><span class="d">{{ t.date_display or '(không rõ ngày)' }}</span></div>
+        <div class="recent-main">
+          <div class="who">{{ t.sender_name or '(không rõ người gửi)' }}</div>
+          <div class="content">{{ t.content or '(nội dung trống)' }}</div>
+          <div class="tags">
+            {% for w in t.warning_labels %}
+            <span class="tag-pill warn-pill">{{ w }}</span>
+            {% endfor %}
+            {% if t.account_holder or t.bank_code %}
+            <span class="tag-pill">{{ t.account_holder or '?' }} · {{ (t.bank_code or '?').upper() }}{{ ' (TM)' if t.account_type == 'cash' else '' }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <div>
+          {% if t.direction %}
+          <span class="badge {{ t.direction }}">{{ t.direction_label }}</span>
+          <div class="recent-amount {{ 'thu-color' if t.direction == 'thu' else 'chi-color' }}">
+            {{ '+' if t.direction == 'thu' else '-' }}{{ t.amount_fmt }} đ
+          </div>
+          {% else %}
+          <span class="badge">?</span>
+          <div class="recent-amount">{{ t.amount_fmt }} đ</div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
   {% endif %}
 </div>

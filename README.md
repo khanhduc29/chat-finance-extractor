@@ -18,6 +18,9 @@ dạng giao diện chat + dashboard thống kê.
 │   └── stats.html                 # Dashboard thống kê (biểu đồ + theo loại/nhân viên/tài khoản/ngày)
 ├── build_static_demo.py           # Render 2 route Flask thành HTML tĩnh trong docs/ (để deploy GitHub Pages)
 ├── docs/                          # Bản demo tĩnh (index.html, stats.html) — nguồn cho GitHub Pages
+├── qa_engine.py                    # Logic dùng chung cho hỏi đáp AI: tóm tắt dữ liệu + gọi OpenAI API
+├── api/
+│   └── ask.py                     # Vercel Serverless Function cho POST /api/ask (bản deploy tĩnh)
 ├── Bao_cao_Phan_ra_Du_lieu_Thu_Chi.docx  # Báo cáo mô tả quy trình & cách phân rã
 └── README.md
 ```
@@ -50,9 +53,31 @@ dạng giao diện chat + dashboard thống kê.
 
    Mở trình duyệt tại:
    - `http://127.0.0.1:5000/` — giao diện chat mô phỏng Zalo
-   - `http://127.0.0.1:5000/stats` — dashboard thống kê (biểu đồ xu hướng, dòng tiền
-     luỹ kế, cơ cấu chi phí theo tuần, tỷ trọng theo loại, giao dịch gần đây, theo loại
-     giao dịch, theo nhân viên, theo tài khoản, theo ngày — bấm vào từng dòng để xem chi tiết)
+   - `http://127.0.0.1:5000/stats` — dashboard thống kê (hỏi đáp nhanh bằng AI, biểu đồ
+     xu hướng, dòng tiền luỹ kế, cơ cấu chi phí theo tuần, tỷ trọng theo loại, giao dịch
+     gần đây, theo loại giao dịch, theo nhân viên, theo tài khoản, theo ngày — bấm vào
+     từng dòng để xem chi tiết)
+
+## Hỏi đáp nhanh bằng AI (tuỳ chọn)
+
+Panel "🙋 Hỏi đáp nhanh" trên `/stats` cho phép gõ câu hỏi tiếng Việt (vd "tháng này lãi
+hay lỗ?", "khoản chi lớn nhất là gì?") — trang gọi `POST /api/ask`, backend tóm tắt số
+liệu hiện có (tổng thu/chi, theo loại/nhân viên/ngân hàng, top giao dịch lớn nhất — xem
+`qa_engine.build_qa_context`) rồi gửi kèm câu hỏi cho OpenAI Chat Completions, trả lời
+dựa trên đúng số liệu đó (không bịa thêm).
+
+Cần biến môi trường `OPENAI_API_KEY` để tính năng này hoạt động — nếu thiếu, panel vẫn
+hiển thị nhưng trả lỗi "Server chưa cấu hình OPENAI_API_KEY", các phần còn lại của trang
+không bị ảnh hưởng.
+
+- **Chạy local** (`python app.py`): set biến môi trường trước khi chạy, vd trên
+  PowerShell: `$env:OPENAI_API_KEY = "sk-..."` rồi `python app.py`.
+- **Deploy Vercel**: vào **Project Settings → Environment Variables**, thêm
+  `OPENAI_API_KEY` (giá trị là API key OpenAI thật), redeploy lại. Route
+  `POST /api/ask` được Vercel tự nhận diện từ `api/ask.py` (Serverless Function), hoạt
+  động song song với phần tĩnh ở `docs/` — không cần cấu hình build/output gì thêm cho
+  phần này.
+- Có thể đổi model qua biến môi trường tuỳ chọn `OPENAI_MODEL` (mặc định `gpt-4o-mini`).
 
 ## Demo tĩnh (GitHub Pages)
 

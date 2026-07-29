@@ -193,6 +193,31 @@
   @media (max-width: 560px) {
     .donut-wrap { flex-direction: column; align-items: flex-start; }
   }
+
+  /* --- Q&A --- */
+  .qa-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .qa-chip {
+    font-size: 12.5px; color: var(--blue-dark); background: #e9f1ff; border: none;
+    padding: 6px 12px; border-radius: 14px; cursor: pointer; font-weight: 600;
+  }
+  .qa-chip:hover { background: #d9e9ff; }
+  .qa-input-row { display: flex; gap: 8px; }
+  .qa-input {
+    flex: 1; padding: 10px 14px; border-radius: 20px; border: 1.5px solid var(--border);
+    font-size: 13.5px; font-family: inherit; outline: none;
+  }
+  .qa-input:focus { border-color: var(--blue); }
+  .qa-btn {
+    background: var(--blue); color: #fff; border: none; padding: 0 20px;
+    border-radius: 20px; font-weight: 700; font-size: 13.5px; cursor: pointer;
+  }
+  .qa-btn:hover { background: var(--blue-dark); }
+  .qa-btn:disabled { opacity: .6; cursor: default; }
+  .qa-answer {
+    margin-top: 14px; padding: 12px 16px; background: #f7f9fc; border-radius: 12px;
+    font-size: 13.5px; line-height: 1.55; white-space: pre-wrap; color: var(--ink);
+  }
+  .qa-answer.qa-error { background: var(--chi-bg); color: var(--chi); }
 </style>
 </head>
 <body>
@@ -219,6 +244,21 @@
       <div class="label">Chênh lệch (net)</div>
       <div class="value net-neg">-190,150,000 đ</div>
     </div>
+  </div>
+
+  <div class="panel">
+    <h2>🙋 Hỏi đáp nhanh <span class="hint">đặt câu hỏi tiếng Việt về số liệu thu chi — AI trả lời dựa trên dữ liệu hiện có</span></h2>
+    <div class="qa-suggestions">
+      <button type="button" class="qa-chip" data-q="Tháng này lãi hay lỗ, chênh lệch bao nhiêu?">Tháng này lãi hay lỗ?</button>
+      <button type="button" class="qa-chip" data-q="Khoản chi nào lớn nhất?">Khoản chi lớn nhất?</button>
+      <button type="button" class="qa-chip" data-q="Nhân viên nào thu/chi nhiều tiền nhất?">Ai thu/chi nhiều nhất?</button>
+      <button type="button" class="qa-chip" data-q="Chi phí văn phòng chiếm bao nhiêu phần trăm tổng chi?">Chi phí văn phòng chiếm bao nhiêu %?</button>
+    </div>
+    <div class="qa-input-row">
+      <input type="text" id="qaInput" class="qa-input" placeholder="Vd: Công nợ hiện tại còn bao nhiêu?" />
+      <button type="button" id="qaAsk" class="qa-btn">Hỏi</button>
+    </div>
+    <div id="qaAnswer" class="qa-answer" style="display:none;"></div>
   </div>
 
   
@@ -7065,6 +7105,49 @@
     row.classList.toggle('open', !isOpen);
     headerRow.classList.toggle('open', !isOpen);
   }
+
+  const qaInput = document.getElementById('qaInput');
+  const qaAnswer = document.getElementById('qaAnswer');
+  const qaAsk = document.getElementById('qaAsk');
+
+  async function askQuestion(question) {
+    question = (question || '').trim();
+    if (!question) return;
+    qaAsk.disabled = true;
+    qaAnswer.style.display = 'block';
+    qaAnswer.classList.remove('qa-error');
+    qaAnswer.textContent = 'Đang hỏi AI...';
+    try {
+      const res = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        qaAnswer.textContent = data.answer || '(không có câu trả lời)';
+      } else {
+        qaAnswer.classList.add('qa-error');
+        qaAnswer.textContent = 'Lỗi: ' + (data.error || res.statusText);
+      }
+    } catch (err) {
+      qaAnswer.classList.add('qa-error');
+      qaAnswer.textContent = 'Lỗi kết nối tới API: ' + err.message;
+    } finally {
+      qaAsk.disabled = false;
+    }
+  }
+
+  qaAsk.addEventListener('click', () => askQuestion(qaInput.value));
+  qaInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') askQuestion(qaInput.value);
+  });
+  document.querySelectorAll('.qa-chip').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      qaInput.value = btn.dataset.q;
+      askQuestion(btn.dataset.q);
+    });
+  });
 </script>
 </body>
 </html>

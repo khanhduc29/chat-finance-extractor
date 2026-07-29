@@ -1,12 +1,15 @@
 import json
 import math
+import os
 from collections import defaultdict
 from datetime import date, datetime
 from html import escape
 from pathlib import Path
 
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template, request
 from markupsafe import Markup
+
+from qa_engine import ask_openai, build_qa_context
 
 app = Flask(__name__)
 
@@ -291,6 +294,27 @@ def index():
         total=total,
         member_count=member_count,
     )
+
+
+@app.route("/api/ask", methods=["POST"])
+def api_ask():
+    data = request.get_json(silent=True) or {}
+    question = (data.get("question") or "").strip()
+    if not question:
+        return jsonify({"error": "Thiếu câu hỏi"}), 400
+
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        return jsonify({"error": "Server chưa cấu hình OPENAI_API_KEY"}), 500
+
+    rows = load_transactions()
+    context = build_qa_context(rows)
+    try:
+        answer = ask_openai(question, context, api_key, model=os.environ.get("OPENAI_MODEL"))
+    except Exception as e:
+        return jsonify({"error": str(e)}), 502
+
+    return jsonify({"answer": answer})
 
 
 @app.route("/stats")

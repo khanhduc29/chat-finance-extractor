@@ -27,7 +27,8 @@ OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 DEFAULT_MODEL = "gpt-4o-mini"
 
 SYSTEM_PROMPT = (
-    'Bạn là trợ lý phân tích số liệu thu chi cho nhóm chat "Thu Chi - Công Ty". '
+    "Bạn là trợ lý phân tích số liệu thu chi tổng hợp từ các nhóm chat Zalo báo cáo "
+    "thu chi của công ty (tên khách hàng đã được ẩn danh). "
     "Dữ liệu bên dưới đến từ một pipeline đã PHÂN RÃ sẵn từng tin nhắn thành các "
     "trường có cấu trúc: category (loại giao dịch), action (hành động), objects "
     "(đối tượng/khoản mục), roles (vai trò đối phương), locations (địa điểm), "

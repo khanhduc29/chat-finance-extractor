@@ -6,7 +6,7 @@ from datetime import date, datetime
 from html import escape
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, abort, jsonify, render_template, request
 from markupsafe import Markup
 
 
@@ -14,9 +14,42 @@ from qa_engine import ask_openai, build_qa_context
 
 app = Flask(__name__)
 
-DATA_FILE = Path(__file__).parent / "zalo_thu_chi_data.json"
-TRANSACTIONS_FILE = Path(__file__).parent / "transactions.json"
-GROUP_NAME = "Thu Chi - Công Ty"
+TRANSACTIONS_FILE = Path(__file__).parent / "real_transactions_anon.json"
+GROUP_NAME = "Thu Chi - Dữ liệu thật (đã ẩn danh)"
+
+# Real (anonymized) data: 3 distinct Zalo groups, each with its own
+# communication/reporting style — "hợp đồng..." and "tài chính" report
+# deposits/settlements/payments (Tk ... amount lines), "kinh doanh" is pure
+# daily work-log chat with no financial lines at all.
+ANON_DATA_FILE = Path(__file__).parent / "data" / "anonymized_zalo_data.json"
+GROUPS = [
+    {
+        "slug": "hop-dong",
+        "group_id": "JJ5J3QDPI9087EQVSI1544U43F03SIG0",
+        "name": "Hợp đồng, Phát sinh, Quyết toán",
+    },
+    {
+        "slug": "tai-chinh",
+        "group_id": "SJ29PSLKI578TDMAT66A0D6M9QR45QO0",
+        "name": "Phòng Tài Chính",
+    },
+    {
+        "slug": "kinh-doanh",
+        "group_id": "5KARD73PGN446UUL4HFL4P07GEHQL8G0",
+        "name": "Phòng Kinh Doanh",
+    },
+    {
+        "slug": "nhan-su",
+        "group_id": "TEST_GROUP_NHAN_SU_0001",
+        "name": "Phòng Nhân Sự",
+    },
+    {
+        "slug": "marketing",
+        "group_id": "TEST_GROUP_MARKETING_0001",
+        "name": "Phòng Marketing",
+    },
+]
+GROUPS_BY_SLUG = {g["slug"]: g for g in GROUPS}
 
 # Consistent color per sender, cycled from a fixed palette
 AVATAR_COLORS = [
@@ -42,10 +75,41 @@ def format_bubble_html(text):
     return Markup("<br>".join(html_lines))
 
 
-def load_messages():
-    with open(DATA_FILE, encoding="utf-8") as f:
+def load_anonymized_by_group():
+    with open(ANON_DATA_FILE, encoding="utf-8") as f:
         raw = json.load(f)
+    by_group = defaultdict(list)
+    for item in raw:
+        by_group[item.get("globalGroupId")].append(item)
+    return by_group
 
+
+def summarize_group(raw_items):
+    parsed = []
+    for item in raw_items:
+        ts = item.get("timestamp", {}).get("$date")
+        if not ts:
+            continue
+        dt = datetime.strptime(ts, "%Y-%m-%dT%H:%M:%S.%fZ")
+        parsed.append((dt, item.get("senderId"), item.get("text") or ""))
+    parsed.sort(key=lambda p: p[0])
+
+    if not parsed:
+        return {"count": 0, "member_count": 0, "last_time": None, "last_preview": "[Trống]"}
+
+    last_dt, _, last_text = parsed[-1]
+    first_line = last_text.split("\n")[0].strip()
+    preview = (first_line[:60] + "…") if len(first_line) > 60 else first_line
+    return {
+        "count": len(parsed),
+        "member_count": len({p[1] for p in parsed}),
+        "last_time": last_dt,
+        "last_time_label": last_dt.strftime("%d/%m/%Y %H:%M"),
+        "last_preview": preview or "[Không có nội dung]",
+    }
+
+
+def build_chat_view(raw):
     messages = []
     for item in raw:
         raw_msg = item["rawMessage"]
@@ -286,14 +350,31 @@ def aggregate(rows, key_fn, label_fn=None, collect_items=False):
 
 
 @app.route("/")
-def index():
-    items, total, member_count = load_messages()
+def groups_list():
+    by_group = load_anonymized_by_group()
+    groups = []
+    for g in GROUPS:
+        summary = summarize_group(by_group.get(g["group_id"], []))
+        groups.append({**g, **summary})
+    groups.sort(key=lambda g: g["last_time"] or datetime.min, reverse=True)
+    return render_template("groups.html", groups=groups)
+
+
+@app.route("/g/<slug>")
+def group_chat(slug):
+    group = GROUPS_BY_SLUG.get(slug)
+    if not group:
+        abort(404)
+    by_group = load_anonymized_by_group()
+    items, total, member_count = build_chat_view(by_group.get(group["group_id"], []))
     return render_template(
         "index.html",
         items=items,
-        group_name=GROUP_NAME,
+        group_name=group["name"],
         total=total,
         member_count=member_count,
+        groups=GROUPS,
+        current_slug=slug,
     )
 
 
@@ -326,9 +407,18 @@ def stats():
     total_chi = sum(t["amount"] for t in rows if t["direction"] == "chi" and t["amount"])
     flagged = [t for t in rows if t["parse_warnings"]]
 
+    def account_key(t):
+        holder, bank = t.get("account_holder"), t.get("bank_code")
+        if not holder and not bank:
+            return None
+        # bank vs cash are separate sub-ledgers for the same person/code —
+        # keep them apart instead of merging into one bucket.
+        suffix = " (tiền mặt)" if t.get("account_type") == "cash" else ""
+        return f"{holder or '?'}.{bank or '?'}{suffix}"
+
     by_category = aggregate(rows, lambda t: t["category"], lambda t: t["category_label"])
     by_employee = aggregate(rows, lambda t: t["sender_name"], collect_items=True)
-    by_account = aggregate(rows, lambda t: t["account"], collect_items=True)
+    by_account = aggregate(rows, account_key, collect_items=True)
     by_date = aggregate(rows, lambda t: t["date"], lambda t: t["date_display"], collect_items=True)
     by_date.sort(key=lambda b: b["key"], reverse=True)
 

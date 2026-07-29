@@ -352,7 +352,9 @@
           <div class="content">{{ t.content }}</div>
           <div class="tags">
             <span class="tag-pill">{{ t.category_label }}</span>
-            <span class="tag-pill">{{ t.account_holder }} · {{ t.bank_code.upper() }}</span>
+            {% if t.account_holder or t.bank_code %}
+            <span class="tag-pill">{{ t.account_holder or '?' }} · {{ (t.bank_code or '?').upper() }}{{ ' (TM)' if t.account_type == 'cash' else '' }}</span>
+            {% endif %}
           </div>
         </div>
         <div>
@@ -403,7 +405,7 @@
           <div class="detail-inner">
             {% for t in e.transactions %}
             <div class="detail-tx">
-              <div class="who">{{ t.date_display }} · {{ t.account_holder }} ({{ t.bank_code.upper() }})</div>
+              <div class="who">{{ t.date_display }}{% if t.account_holder or t.bank_code %} · {{ t.account_holder or '?' }} ({{ (t.bank_code or '?').upper() }}{{ ' TM' if t.account_type == 'cash' else '' }}){% endif %}</div>
               <div class="content">
                 <span class="tag-pill">{{ t.category_label }}</span>
                 {{ t.content }}
@@ -427,8 +429,8 @@
       {% for a in by_account %}
       {% set first = a.transactions[0] %}
       <tr class="date-row" data-target="acc-{{ loop.index }}" onclick="toggleDay('acc-{{ loop.index }}', this)">
-        <td><span class="chev">▶</span>{{ first.account_holder }}</td>
-        <td><span class="tag-pill">{{ first.bank_code.upper() }}</span></td>
+        <td><span class="chev">▶</span>{{ first.account_holder or '?' }}</td>
+        <td><span class="tag-pill">{{ (first.bank_code or '?').upper() }}{{ ' · Tiền mặt' if first.account_type == 'cash' else '' }}</span></td>
         <td class="num thu-color">{{ "{:,}".format(a.thu) }}</td>
         <td class="num chi-color">{{ "{:,}".format(a.chi) }}</td>
         <td class="num">{{ a.count }}</td>

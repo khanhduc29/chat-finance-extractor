@@ -136,13 +136,28 @@
 <body>
   <div class="phone">
     <div class="header">
-      <div class="group-avatar">TC</div>
+      {% if groups %}
+      <a href="/" style="color:#fff; text-decoration:none; font-size:18px; margin-right:2px;" title="Danh sách nhóm">←</a>
+      {% endif %}
+      <div class="group-avatar">{{ group_name[:1] }}</div>
       <div class="info">
         <div class="name">{{ group_name }}</div>
         <div class="sub">{{ member_count }} thành viên · {{ total }} tin nhắn</div>
       </div>
       <div class="icons"><a href="/stats" style="color:#fff; text-decoration:none; font-size:13px; border:1px solid rgba(255,255,255,.6); border-radius:12px; padding:4px 10px;">Thống kê</a></div>
     </div>
+
+    {% if groups %}
+    <div style="display:flex; gap:6px; padding:8px 10px; background:#fff; border-bottom:1px solid #e2e8ee; overflow-x:auto; flex-shrink:0;">
+      {% for g in groups %}
+      <a href="{{ url_for('group_chat', slug=g.slug) }}"
+         style="flex-shrink:0; font-size:12px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:14px;
+                {% if g.slug == current_slug %}background:#0068ff; color:#fff;{% else %}background:#f0f3f6; color:#4b5a66;{% endif %}">
+        {{ g.name }}
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
 
     <div class="chat-area" id="chatArea">
       {% for item in items %}

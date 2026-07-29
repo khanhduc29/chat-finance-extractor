@@ -46,6 +46,27 @@ SUPPLEMENTARY_FAKE_NAMES = [
     "Diệp Từ Sơn", "Uyên Việt Trì", "Khoa Bỉm Sơn",
 ]
 
+# Employee/staff display names (rawMessage.dName) get their own fake pool,
+# separate from customers — "Smv <tên>" is the company's internal staff-tag
+# prefix (Smv = Sao Mộc Vương), which itself leaks the real company name,
+# so it's stripped along with the person's name, not just replaced 1:1.
+STAFF_FAKE_NAMES = [
+    "NV Minh Anh", "NV Gia Bảo", "NV Thu Hà", "NV Đức Huy", "NV Ngọc Lan",
+    "NV Bảo Long", "NV Thùy Linh", "NV Hải Nam", "NV Anh Quân", "NV Thanh Tú",
+]
+
+# Real brand/company names that show up inside message content itself (not
+# just in dName) — replaced with made-up brand names of the same kind
+# (furniture/sofa business), so the anonymized data still reads naturally.
+BRAND_MAPPING = {
+    "Sao Mộc Vương": "Ánh Dương Group",
+    "Savisofa": "Vinasofa",
+    "Savilux": "Nội Thất An Khang",
+    "SMVCons": "ADVCons",
+    "smvcons": "advcons",
+    "SMV": "ADV",
+}
+
 
 def collect_real_names(messages):
     names = []
@@ -82,12 +103,39 @@ def build_name_mapping(real_names):
     return mapping
 
 
-def anonymize_messages(messages, mapping):
-    # Longest real name first, so e.g. "Trang Hoà Bình" is replaced before
-    # a shorter unrelated match could interfere.
+def collect_staff_dnames(messages):
+    """Every distinct employee/page display name seen anywhere — not just in
+    transaction-shaped messages, since staff also chat in the "noise"."""
+    names = []
+    seen = set()
+    for item, raw_msg, source_file in messages:
+        candidates = [raw_msg.get("dName")]
+        frm = item.get("from") or {}
+        candidates += [frm.get("displayName"), frm.get("zaloName"), frm.get("name")]
+        for name in candidates:
+            if name and name not in seen:
+                seen.add(name)
+                names.append(name)
+    return names
+
+
+def build_staff_mapping(staff_names):
+    pool = list(dict.fromkeys(STAFF_FAKE_NAMES))
+    mapping = {}
+    pool_cycle = itertools.cycle(pool)
+    for name in sorted(staff_names, key=len, reverse=True):
+        mapping[name] = next(pool_cycle)
+    return mapping
+
+
+def anonymize_messages(messages, customer_mapping, staff_mapping):
+    # Longest name first everywhere, so e.g. "Kim Oanh Mộc Chất Smv Group"
+    # is replaced before a shorter unrelated match (like bare "Smv") could
+    # interfere with it.
+    text_mapping = {**customer_mapping, **staff_mapping, **BRAND_MAPPING}
     compiled = [
         (re.compile(r"\b" + re.escape(real) + r"\b"), fake)
-        for real, fake in sorted(mapping.items(), key=lambda kv: len(kv[0]), reverse=True)
+        for real, fake in sorted(text_mapping.items(), key=lambda kv: len(kv[0]), reverse=True)
     ]
 
     anonymized = []
@@ -98,22 +146,41 @@ def anonymize_messages(messages, mapping):
             for pattern, fake in compiled:
                 text = pattern.sub(fake, text)
             item["text"] = text
-        anonymized.append((item, raw_msg, source_file))
+
+        rm = item.get("rawMessage")
+        if isinstance(rm, dict) and rm.get("dName") in staff_mapping:
+            rm["dName"] = staff_mapping[rm["dName"]]
+        frm = item.get("from")
+        if isinstance(frm, dict):
+            for key in ("displayName", "zaloName", "name"):
+                if frm.get(key) in staff_mapping:
+                    frm[key] = staff_mapping[frm[key]]
+
+        # Re-fetch from the mutated item — `raw_msg` above is the stale
+        # pre-anonymization reference captured by the caller's tuple.
+        anonymized.append((item, item.get("rawMessage") or {}, source_file))
     return anonymized
 
 
 def main():
     messages = load_raw_messages()
+
     real_names = collect_real_names(messages)
     mapping = build_name_mapping(real_names)
-
     print(f"Found {len(real_names)} distinct real customer names to anonymize")
     for real, fake in sorted(mapping.items())[:5]:
         print(f"  {real!r} -> {fake!r}")
     if len(mapping) > 5:
         print(f"  ... and {len(mapping) - 5} more")
 
-    anonymized_messages = anonymize_messages(messages, mapping)
+    staff_names = collect_staff_dnames(messages)
+    staff_mapping = build_staff_mapping(staff_names)
+    print(f"\nFound {len(staff_names)} distinct staff/page display names to anonymize")
+    for real, fake in staff_mapping.items():
+        print(f"  {real!r} -> {fake!r}")
+    print(f"\nBrand terms replaced: {list(BRAND_MAPPING.keys())}")
+
+    anonymized_messages = anonymize_messages(messages, mapping, staff_mapping)
 
     OUT_RAW.parent.mkdir(exist_ok=True)
     with open(OUT_RAW, "w", encoding="utf-8") as f:

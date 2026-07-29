@@ -164,6 +164,35 @@
     .cards { grid-template-columns: repeat(2, 1fr); }
     .recent-row { grid-template-columns: 60px 1fr auto; }
   }
+
+  /* --- Charts --- */
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 12px; font-size: 12px; color: var(--muted); }
+  .legend-item { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .legend-item .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .dot.thu-dot { background: var(--thu); }
+  .dot.chi-dot { background: var(--chi); }
+  .dot.net-dot { background: var(--blue); }
+  .chart-svg { width: 100%; height: auto; overflow: visible; display: block; }
+  .line-thu { fill: none; stroke: var(--thu); stroke-width: 2.2; }
+  .line-chi { fill: none; stroke: var(--chi); stroke-width: 2.2; }
+  .line-net { fill: none; stroke: var(--blue); stroke-width: 2; stroke-dasharray: 4 3; }
+  .line-cum { fill: none; stroke: #7c3aed; stroke-width: 2.4; }
+  .area-cum { fill: rgba(124, 58, 237, .14); stroke: none; }
+  .area-cum.neg { fill: rgba(220, 38, 38, .12); }
+  .zero-line { stroke: var(--border); stroke-width: 1; }
+  .axis-label { font-size: 9.5px; fill: var(--muted); text-anchor: middle; }
+  .stack-rect { transition: opacity .1s; }
+  .stack-rect:hover { opacity: .82; }
+  .donut-wrap { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .donut-svg { width: 180px; height: 180px; flex: none; }
+  .donut-seg { transition: opacity .1s; }
+  .donut-seg:hover { opacity: .82; }
+  .donut-center-label { font-size: 12.5px; font-weight: 800; fill: var(--ink); text-anchor: middle; dominant-baseline: middle; }
+  .donut-legend { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 6px; }
+
+  @media (max-width: 560px) {
+    .donut-wrap { flex-direction: column; align-items: flex-start; }
+  }
 </style>
 </head>
 <body>
@@ -191,6 +220,86 @@
       <div class="value {{ 'net-pos' if net >= 0 else 'net-neg' }}">{{ "{:,}".format(net) }} đ</div>
     </div>
   </div>
+
+  {% if trend %}
+  <div class="panel">
+    <h2>📈 Xu hướng thu/chi theo ngày <span class="hint">theo dõi biến động để lập kế hoạch dòng tiền</span></h2>
+    <div class="chart-legend">
+      <span class="legend-item"><span class="dot thu-dot"></span>Thu</span>
+      <span class="legend-item"><span class="dot chi-dot"></span>Chi</span>
+      <span class="legend-item"><span class="dot net-dot"></span>Chênh lệch (net)</span>
+    </div>
+    <svg viewBox="0 0 {{ trend.width }} {{ trend.height }}" class="chart-svg" preserveAspectRatio="none">
+      <line x1="0" y1="{{ trend.zero_y }}" x2="{{ trend.width }}" y2="{{ trend.zero_y }}" class="zero-line" />
+      <polyline points="{{ trend.thu_points }}" class="line-thu" />
+      <polyline points="{{ trend.chi_points }}" class="line-chi" />
+      <polyline points="{{ trend.net_points }}" class="line-net" />
+      {% for xl in trend.x_labels %}
+      <text x="{{ xl.x }}" y="{{ trend.height - 6 }}" class="axis-label">{{ xl.label }}</text>
+      {% endfor %}
+    </svg>
+  </div>
+  {% endif %}
+
+  {% if cumulative %}
+  <div class="panel">
+    <h2>📉 Dòng tiền luỹ kế <span class="hint">nhận biết thời điểm quỹ có thể âm/thấp trong tháng</span></h2>
+    <svg viewBox="0 0 {{ cumulative.width }} {{ cumulative.height }}" class="chart-svg" preserveAspectRatio="none">
+      <line x1="0" y1="{{ cumulative.zero_y }}" x2="{{ cumulative.width }}" y2="{{ cumulative.zero_y }}" class="zero-line" />
+      <polygon points="{{ cumulative.area_points }}" class="area-cum {{ 'neg' if cumulative.end_negative else '' }}" />
+      <polyline points="{{ cumulative.line_points }}" class="line-cum" />
+      {% for xl in cumulative.x_labels %}
+      <text x="{{ xl.x }}" y="{{ cumulative.height - 6 }}" class="axis-label">{{ xl.label }}</text>
+      {% endfor %}
+    </svg>
+  </div>
+  {% endif %}
+
+  {% if weekly_stack %}
+  <div class="panel">
+    <h2>🧱 Cơ cấu chi phí theo tuần <span class="hint">theo dõi thay đổi tỉ trọng từng nhóm chi phí để lập ngân sách</span></h2>
+    <div class="chart-legend">
+      {% for l in weekly_stack.legend %}
+      <span class="legend-item"><span class="dot" style="background: {{ l.color }};"></span>{{ l.cat }}</span>
+      {% endfor %}
+    </div>
+    <svg viewBox="0 0 {{ weekly_stack.width }} {{ weekly_stack.height }}" class="chart-svg" preserveAspectRatio="none">
+      {% for b in weekly_stack.bars %}
+        {% for seg in b.segments %}
+        <rect class="stack-rect" x="{{ b.x }}" y="{{ seg.y }}" width="{{ b.w }}" height="{{ seg.h }}" fill="{{ seg.color }}">
+          <title>{{ b.label }} · {{ seg.cat }}: {{ "{:,}".format(seg.amt) }} đ</title>
+        </rect>
+        {% endfor %}
+        <text x="{{ b.x + b.w / 2 }}" y="{{ weekly_stack.height - 8 }}" class="axis-label">{{ b.label }}</text>
+      {% endfor %}
+    </svg>
+  </div>
+  {% endif %}
+
+  {% if donut %}
+  <div class="panel">
+    <h2>🥧 Tỷ trọng theo loại giao dịch <span class="hint">nhìn nhanh cơ cấu dòng tiền theo category</span></h2>
+    <div class="donut-wrap">
+      <svg viewBox="0 0 {{ donut.size }} {{ donut.size }}" class="donut-svg">
+        <g transform="rotate(-90 {{ donut.cx }} {{ donut.cy }})">
+          {% for seg in donut.segments %}
+          <circle class="donut-seg" cx="{{ donut.cx }}" cy="{{ donut.cy }}" r="{{ donut.r }}" fill="none"
+            stroke="{{ seg.color }}" stroke-width="{{ donut.stroke }}"
+            stroke-dasharray="{{ seg.dash }} {{ seg.gap }}" stroke-dashoffset="{{ seg.offset }}">
+            <title>{{ seg.label }}: {{ "{:,}".format(seg.value) }} đ ({{ seg.pct }}%)</title>
+          </circle>
+          {% endfor %}
+        </g>
+        <text x="{{ donut.cx }}" y="{{ donut.cy }}" class="donut-center-label">{{ "{:,}".format(donut.total) }} đ</text>
+      </svg>
+      <div class="donut-legend">
+        {% for seg in donut.segments %}
+        <span class="legend-item"><span class="dot" style="background: {{ seg.color }};"></span>{{ seg.label }} — {{ seg.pct }}%</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
 
   <div class="panel">
     <h2>🕒 Giao dịch gần đây nhất <span class="hint">15 giao dịch mới nhất, để theo dõi</span></h2>
